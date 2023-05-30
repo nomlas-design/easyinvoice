@@ -1,0 +1,10 @@
+@import 'variables';
+
+.main {
+  padding: 1rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(auto, 700px) 1fr;
+  grid-gap: 2rem;
+  min-height: 100vh;
+}
