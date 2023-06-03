@@ -1,53 +1,119 @@
 .invoiceform {
-  &__upload {
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    gap: 2rem;
     width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 1rem;
-    padding: 0 1rem;
-    font-size: 1rem;
 
-    .upload__text {
+    &__item {
+      &.invoice_number {
+        grid-column: 1;
+        grid-row: 1;
+      }
+      &.purchase_order {
+        grid-column: 2;
+        grid-row: 1;
+      }
+      &.colourpicker_wrapper {
+        grid-column: 3;
+        grid-row: 2;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+      }
+      &.invoiceform__upload {
+        grid-column: 3;
+        grid-row: 1;
+      }
+      &.company_name {
+        grid-column: 1;
+        grid-row: 2;
+      }
+      &.email {
+        grid-column: 2;
+        grid-row: 2;
+      }
+    }
+
+    .invoiceform__upload {
+      width: 100%;
+      height: 100%;
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      .upload__helper {
-        font-size: 0.8rem;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 1rem;
+      padding: 0 1rem;
+      font-size: 1.2rem;
+
+      .upload__text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        .upload__helper {
+          font-size: 1rem;
+        }
+      }
+    }
+    &__items {
+      background: beige;
+      padding: 2rem 2rem 2rem 1rem;
+      border-radius: 0.5rem;
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      input[type='number'] {
+        -moz-appearance: textfield;
+      }
+
+      .fab__text {
+        text-transform: capitalize;
+        font-size: 1.1rem;
+      }
+
+      &__text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-around;
+        gap: 1rem;
+        height: 100%;
+        padding-bottom: 2rem;
+        h3 {
+          font-size: 1.65rem;
+        }
       }
     }
   }
-  &__items {
-    background: beige;
-    padding: 2rem 2rem 2rem 1rem;
-    border-radius: 0.5rem;
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
+
+  // Colour picker
+
+  .colourpicker {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+
+    &__swatch {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      border: 3px solid #fff;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1),
+        inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
     }
 
-    input[type='number'] {
-      -moz-appearance: textfield;
-    }
-
-    .fab__text {
-      text-transform: capitalize;
-      font-size: 1.1rem;
-    }
-
-    &__text {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: space-around;
-      gap: 1rem;
-      height: 100%;
-      padding-bottom: 2rem;
-      h3 {
-        font-size: 1.65rem;
-      }
+    &__popover {
+      position: absolute;
+      top: calc(100% + 2px);
+      left: 0;
+      border-radius: 9px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     }
   }
 }

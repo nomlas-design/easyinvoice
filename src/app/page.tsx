@@ -2,7 +2,7 @@
 
 import styles from './styles/home.module.scss';
 import FormWrapper from './components/InvoiceForm/FormWrapper';
-import InvoicePreview from './components/InvoicePreview';
+import InvoicePreview from './components/InvoicePreview/InvoicePreview';
 import { useEffect, useState } from 'react';
 
 export default function Home() {

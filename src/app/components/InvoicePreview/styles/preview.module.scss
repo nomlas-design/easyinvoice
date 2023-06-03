@@ -1,0 +1,58 @@
+.invoicepreview {
+  padding: 1rem;
+  border: 1px solid #e1e1e1;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+
+    &__item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+    }
+  }
+
+  &__column {
+    display: flex;
+    flex-direction: column;
+
+    &__item {
+    }
+  }
+
+  // Individual styles
+
+  &__fontlight {
+    color: rgb(93, 93, 93);
+  }
+
+  &__box {
+    width: 100%;
+    height: 300px;
+    border-radius: 1.5rem;
+    padding: 1rem;
+  }
+
+  &__logo {
+    position: relative;
+    width: 180px;
+    height: 100px;
+  }
+
+  &__company {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0c0c0c;
+  }
+
+  &__email {
+  }
+}

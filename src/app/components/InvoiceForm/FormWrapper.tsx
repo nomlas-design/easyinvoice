@@ -2,7 +2,7 @@
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import InvoiceForm from './InvoiceForm';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const theme = createTheme({
   palette: {
@@ -56,9 +56,29 @@ export default function FormWrapper({ onFormDataChange }: FormWrapperProps) {
     }
   };
 
+  const handleColourChange = (colour: string) => {
+    const newFormData = { ...formData, colour };
+    setFormData(newFormData);
+    onFormDataChange(newFormData); // Pass the new formData to the parent
+  };
+
+  useEffect(() => {
+    // fill form data with default values
+    const defaultFormData = {
+      invoice_number: '123456',
+      purchase_order: '987654',
+      company_name: 'Company Name',
+      email: 'declan@nomlas.design',
+    };
+    setFormData(defaultFormData);
+  }, []);
+
   return (
     <ThemeProvider theme={theme}>
-      <InvoiceForm onUserInput={handleInputChange} />
+      <InvoiceForm
+        onUserInput={handleInputChange}
+        onColourChange={handleColourChange}
+      />
     </ThemeProvider>
   );
 }
