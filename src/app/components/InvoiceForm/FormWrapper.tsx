@@ -2,6 +2,7 @@
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import InvoiceForm from './InvoiceForm';
+import { useState } from 'react';
 
 const theme = createTheme({
   palette: {
@@ -11,6 +12,9 @@ const theme = createTheme({
     secondary: {
       main: '#F2F2F2',
     },
+  },
+  typography: {
+    fontFamily: 'Poppins, sans-serif',
   },
   components: {
     MuiTextField: {
@@ -31,10 +35,30 @@ const theme = createTheme({
   },
 });
 
-export default function FormWrapper() {
+interface FormWrapperProps {
+  onFormDataChange: (newFormData: Record<string, string> | null) => void;
+}
+
+export default function FormWrapper({ onFormDataChange }: FormWrapperProps) {
+  const [formData, setFormData] = useState<Record<string, string> | null>(null);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value === '' && formData) {
+      const { [e.target.name]: _, ...rest } = formData;
+      const allValuesEmpty = Object.values(rest).every((value) => value === '');
+      const newFormData = allValuesEmpty ? null : rest;
+      setFormData(newFormData);
+      onFormDataChange(newFormData); // Pass the new formData to the parent
+    } else {
+      const newFormData = { ...formData, [e.target.name]: e.target.value };
+      setFormData(newFormData);
+      onFormDataChange(newFormData); // Pass the new formData to the parent
+    }
+  };
+
   return (
     <ThemeProvider theme={theme}>
-      <InvoiceForm />
+      <InvoiceForm onUserInput={handleInputChange} />
     </ThemeProvider>
   );
 }

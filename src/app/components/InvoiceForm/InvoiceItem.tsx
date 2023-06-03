@@ -14,9 +14,14 @@ function convertAmount(unitCost: number, quantity: number) {
 interface InvoiceItemProps {
   id: number;
   onDelete: (id: number) => void;
+  billingMethod: string;
 }
 
-export default function InvoiceItem({ id, onDelete }: InvoiceItemProps) {
+export default function InvoiceItem({
+  id,
+  onDelete,
+  billingMethod,
+}: InvoiceItemProps) {
   const [amount, setAmount] = useState(0);
   const [unitCost, setUnitCost] = useState(0);
   const [quantity, setQuantity] = useState(0);
@@ -44,7 +49,7 @@ export default function InvoiceItem({ id, onDelete }: InvoiceItemProps) {
       <Grid item xs={12} md={2}>
         <TextField
           id={`unit-cost-${id}`}
-          label='Unit Cost'
+          label={billingMethod === 'hourly' ? 'Rate/Hr' : 'Unit Cost'}
           type='number'
           sx={{ width: '100%' }}
           InputLabelProps={{
@@ -56,7 +61,7 @@ export default function InvoiceItem({ id, onDelete }: InvoiceItemProps) {
       <Grid item xs={12} md={2}>
         <TextField
           id={`quantity-${id}`}
-          label='Quantity'
+          label={billingMethod === 'hourly' ? 'Hours' : 'Quantity'}
           type='number'
           sx={{ width: '100%' }}
           InputLabelProps={{

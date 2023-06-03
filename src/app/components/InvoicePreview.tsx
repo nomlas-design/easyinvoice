@@ -8,6 +8,7 @@ import {
   StyleSheet,
   PDFViewer,
 } from '@react-pdf/renderer';
+import { useEffect } from 'react';
 
 const styles = StyleSheet.create({
   page: {
@@ -21,19 +22,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function InvoicePreview() {
-  return (
-    <PDFViewer style={{ width: '100%', height: '100%' }}>
-      <Document>
-        <Page size='A4' style={styles.page}>
-          <View style={styles.section}>
-            <Text>Section #1</Text>
-          </View>
-          <View style={styles.section}>
-            <Text>Section #2</Text>
-          </View>
-        </Page>
-      </Document>
-    </PDFViewer>
-  );
+export default function InvoicePreview({
+  formData,
+}: {
+  formData: Record<string, string> | null;
+}) {
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
+
+  return <></>;
 }
