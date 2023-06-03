@@ -1,39 +1,7 @@
 'use client';
 
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import InvoiceForm from './InvoiceForm';
 import { useEffect, useState } from 'react';
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#1D1D1D',
-    },
-    secondary: {
-      main: '#F2F2F2',
-    },
-  },
-  typography: {
-    fontFamily: 'Poppins, sans-serif',
-  },
-  components: {
-    MuiTextField: {
-      styleOverrides: {
-        root: {
-          backgroundColor: 'white',
-        },
-      },
-    },
-    MuiTooltip: {
-      styleOverrides: {
-        tooltip: {
-          fontSize: '1rem',
-          padding: '0.5rem 0.7rem',
-        },
-      },
-    },
-  },
-});
 
 interface FormWrapperProps {
   onFormDataChange: (newFormData: Record<string, string> | null) => void;
@@ -74,11 +42,9 @@ export default function FormWrapper({ onFormDataChange }: FormWrapperProps) {
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
-      <InvoiceForm
-        onUserInput={handleInputChange}
-        onColourChange={handleColourChange}
-      />
-    </ThemeProvider>
+    <InvoiceForm
+      onUserInput={handleInputChange}
+      onColourChange={handleColourChange}
+    />
   );
 }

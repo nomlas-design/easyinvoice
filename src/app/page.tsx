@@ -13,9 +13,11 @@ export default function Home() {
   };
 
   return (
-    <main className={styles.main}>
-      <FormWrapper onFormDataChange={handleFormDataChange} />
-      <InvoicePreview formData={formData} />
-    </main>
+    <div className='wrapper'>
+      <main className={styles.main}>
+        <FormWrapper onFormDataChange={handleFormDataChange} />
+        <InvoicePreview formData={formData} />
+      </main>
+    </div>
   );
 }

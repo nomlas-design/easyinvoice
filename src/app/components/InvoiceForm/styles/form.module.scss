@@ -1,9 +1,9 @@
 .invoiceform {
   &__grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto;
-    gap: 2rem;
+    gap: 1rem;
     width: 100%;
 
     &__item {
@@ -16,14 +16,14 @@
         grid-row: 1;
       }
       &.colourpicker_wrapper {
-        grid-column: 3;
+        grid-column: 2;
         grid-row: 2;
         display: flex;
         align-items: center;
         justify-content: flex-start;
       }
       &.invoiceform__upload {
-        grid-column: 3;
+        grid-column: 2;
         grid-row: 1;
       }
       &.company_name {
@@ -33,6 +33,11 @@
       &.email {
         grid-column: 2;
         grid-row: 2;
+      }
+
+      &.item_details {
+        grid-column: 1 / span 2;
+        grid-row: 4;
       }
     }
 
@@ -55,6 +60,7 @@
         }
       }
     }
+
     &__items {
       background: beige;
       padding: 2rem 2rem 2rem 1rem;
@@ -97,6 +103,7 @@
     align-items: center;
     justify-content: flex-start;
     gap: 1rem;
+    z-index: 2;
 
     &__swatch {
       width: 28px;
@@ -113,7 +120,36 @@
       top: calc(100% + 2px);
       left: 0;
       border-radius: 9px;
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
     }
+
+    input {
+      display: block;
+      box-sizing: border-box;
+      width: 200px;
+      padding: 6px;
+      margin-top: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: #eee;
+      outline: none;
+      font: inherit;
+      text-transform: uppercase;
+      text-align: center;
+    }
+  }
+}
+
+.invoiceform__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1rem;
+  border: 1px solid #ddd;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  h3 {
+    font-size: 1.25rem;
   }
 }

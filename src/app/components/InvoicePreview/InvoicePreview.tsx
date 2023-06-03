@@ -1,34 +1,30 @@
 'use client';
 
 import styles from './styles/preview.module.scss';
+import {
+  generateBackground,
+  generateTextBackgroundColour,
+  generateTextColour,
+} from '../../lib/configureColours';
 
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-
-import { darken } from 'polished';
 
 export default function InvoicePreview({
   formData,
 }: {
   formData: Record<string, string> | null;
 }) {
-  const [background, setBackground] = useState<string>('#1D1D1D');
+  const [background, setBackground] = useState<string>('#0c0c0c');
+  const [textBackgroundColour, setTextBackgroundColour] =
+    useState<string>('#ffffff');
+  const [textColour, setTextColour] = useState<string>('#0c0c0c');
 
   useEffect(() => {
-    generateBackground(formData ? formData.colour : '#1D1D1D');
+    setBackground(generateBackground(formData?.colour));
+    setTextBackgroundColour(generateTextBackgroundColour(formData?.colour));
+    setTextColour(generateTextColour(formData?.colour));
   }, [formData]);
-
-  const generateBackground = (colour: string) => {
-    console.log(colour);
-    if (colour === '#ffffff') {
-      setBackground(colour);
-    } else {
-      const darkerColour = darken(0.15, colour);
-      setBackground(
-        `linear-gradient(125deg, ${colour} 0%, ${darkerColour} 100%)`
-      );
-    }
-  };
 
   return (
     <>
@@ -46,7 +42,10 @@ export default function InvoicePreview({
               />
             </div>
             <div className={styles.invoicepreview__column}>
-              <div className={styles.invoicepreview__company}>
+              <div
+                style={{ color: textColour }}
+                className={styles.invoicepreview__company}
+              >
                 {formData ? formData.company_name : 'Nomlas Design'}
               </div>
               <div className={styles.invoicepreview__email}>
@@ -65,7 +64,9 @@ export default function InvoicePreview({
           <div
             style={{ background: background }}
             className={styles.invoicepreview__box}
-          ></div>
+          >
+            <h1 style={{ color: textBackgroundColour }}>Text Preview</h1>
+          </div>
         </div>
       </div>
     </>

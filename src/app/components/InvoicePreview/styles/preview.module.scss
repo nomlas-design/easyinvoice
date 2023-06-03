@@ -1,5 +1,5 @@
 .invoicepreview {
-  padding: 1rem;
+  padding: 2rem 3rem;
   border: 1px solid #e1e1e1;
   border-radius: 0.5rem;
   display: flex;
@@ -37,6 +37,10 @@
   &__box {
     width: 100%;
     height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     border-radius: 1.5rem;
     padding: 1rem;
   }

@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { HexColorPicker } from 'react-colorful';
+import { HexColorInput, HexColorPicker } from 'react-colorful';
 
 import styles from '../styles/form.module.scss';
 import useClickOutside from './useClickOutside';
@@ -27,6 +27,7 @@ export default function ColourPicker({ colour, onChange }: ColourPickerProps) {
       {isOpen && (
         <div className={styles.colourpicker__popover} ref={popover}>
           <HexColorPicker color={colour} onChange={onChange} />
+          <HexColorInput color={colour} onChange={onChange} />
         </div>
       )}
     </div>
