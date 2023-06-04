@@ -1,5 +1,6 @@
 'use client';
 
+import styles from './styles/sidebar.module.scss';
 import InvoiceForm from './InvoiceForm';
 import { useEffect, useState } from 'react';
 
@@ -42,9 +43,11 @@ export default function FormWrapper({ onFormDataChange }: FormWrapperProps) {
   }, []);
 
   return (
-    <InvoiceForm
-      onUserInput={handleInputChange}
-      onColourChange={handleColourChange}
-    />
+    <div className={styles.sidebar}>
+      <InvoiceForm
+      // onUserInput={handleInputChange}
+      // onColourChange={handleColourChange}
+      />
+    </div>
   );
 }

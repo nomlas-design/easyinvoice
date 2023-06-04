@@ -16,7 +16,7 @@ export default function Home() {
     <div className='wrapper'>
       <main className={styles.main}>
         <FormWrapper onFormDataChange={handleFormDataChange} />
-        <InvoicePreview formData={formData} />
+        {/* <InvoicePreview formData={formData} /> */}
       </main>
     </div>
   );
