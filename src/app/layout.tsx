@@ -6,6 +6,7 @@ import { lightTheme } from './themes/lightTheme';
 import { Poppins } from 'next/font/google';
 
 import Navbar from './components/Navbar/Navbar';
+import Head from 'next/head';
 
 const poppins = Poppins({
   weight: ['400', '600'],
@@ -21,9 +22,23 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
+      <Head>
+        <title>NeatReceipt | Free Invoice Generator</title>
+        <meta
+          name='description'
+          content='Dynamically generate and download PDF invoices for free.'
+        />
+        <meta name='keywords' content='invoice, freelancer, free' />
+        <meta name='author' content='Nomlas Design' />
+        <meta
+          property='og:title'
+          content='NeatReceipt | Free Invoice Generator'
+          key='title'
+        />
+      </Head>
       <ThemeProvider theme={lightTheme}>
         <body className={poppins.className}>
-          {/* <Navbar /> */}
+          <Navbar />
           {children}
         </body>
       </ThemeProvider>

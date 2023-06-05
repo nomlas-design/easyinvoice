@@ -1,10 +1,13 @@
 .invoicepreview {
+  font-size: 1.25vh;
   padding: 2rem 3rem;
-  border: 1px solid #e1e1e1;
-  border-radius: 0.5rem;
+  // border: 1px solid #e1e1e1;
+  // border-radius: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 12px 3px;
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
+  background: white;
 
   &__row {
     display: flex;
@@ -16,7 +19,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 2rem;
+      gap: 1.25rem;
     }
   }
 
@@ -47,8 +50,8 @@
 
   &__logo {
     position: relative;
-    width: 180px;
-    height: 100px;
+    width: 40px;
+    height: 40px;
   }
 
   &__company {

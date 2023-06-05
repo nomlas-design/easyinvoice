@@ -1,16 +1,16 @@
 import { createTheme } from '@mui/material';
-import { Poppins } from 'next/font/google';
-
-const poppins = Poppins({
-  weight: ['400'],
-  style: ['normal'],
-  subsets: ['latin'],
-  display: 'swap',
-});
-
-console.log(poppins.style.fontFamily);
 
 export const lightTheme = createTheme({
+  // set primary and secondary colors
+
+  palette: {
+    primary: {
+      main: '#f9a124',
+    },
+    secondary: {
+      main: '#333322',
+    },
+  },
   typography: {
     fontFamily: 'Poppins',
     fontSize: 14,

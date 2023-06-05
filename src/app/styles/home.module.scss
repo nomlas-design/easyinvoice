@@ -1,11 +1,10 @@
 @import 'variables';
 
-.main {
-  max-width: 1440px;
+.appwrap {
   width: 100%;
   display: grid;
-  grid-template-columns: minmax(auto, 500px) minmax(auto, 1200px);
-  gap: 1rem;
+  grid-template-columns: minmax(auto, 480px) minmax(auto, 1200px);
+  gap: 2rem;
   min-height: 100vh;
   align-items: start;
 }

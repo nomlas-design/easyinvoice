@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './styles/sidebar.module.scss';
 
 interface Props {
@@ -6,27 +6,34 @@ interface Props {
   name: string;
   id: string;
   expanded: boolean;
+  onChange: (event: React.ChangeEvent<{}>, isExpanded: boolean) => void;
 }
 
-const InputAccordion = ({ children, name, id, expanded }: Props) => {
+const InputAccordion = ({ children, name, id, expanded, onChange }: Props) => {
   const [isOpen, setIsOpen] = useState(expanded);
   const [isVisible, setIsVisible] = useState(expanded);
 
   const toggleAccordion = () => {
-    setIsOpen(!isOpen);
-
     if (isOpen) {
-      // when closing, delay setting isVisible to false until transition is complete
+      setIsOpen(false);
+      // When closing, delay setting isVisible to false until transition is complete
       setTimeout(() => setIsVisible(false), 200);
     } else {
-      // when opening, set isVisible to true immediately
       setIsVisible(true);
+      // When opening, set isVisible to true immediately and setOpen after transition
+      setTimeout(() => setIsOpen(true), 200);
     }
+    onChange({}, !isOpen);
   };
 
   useEffect(() => {
-    setIsOpen(expanded);
-    setIsVisible(expanded);
+    if (expanded) {
+      setIsOpen(true);
+      setTimeout(() => setIsVisible(true), 200);
+    } else {
+      setIsVisible(false);
+      setTimeout(() => setIsOpen(false), 200);
+    }
   }, [expanded]);
 
   const contentClass = isOpen

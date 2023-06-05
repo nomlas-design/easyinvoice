@@ -35,7 +35,7 @@ export default function InvoicePreview({
           <div className={styles.invoicepreview__row__item}>
             <div className={styles.invoicepreview__logo}>
               <Image
-                src='/images/logo.png'
+                src='/images/logo_2.svg'
                 alt={formData ? formData.company_name : 'Logo'}
                 fill={true}
                 style={{ objectFit: 'contain' }}

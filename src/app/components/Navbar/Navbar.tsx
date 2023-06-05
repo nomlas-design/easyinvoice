@@ -1,14 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
 import styles from './styles/navbar.module.scss';
 
 import { useEffect, useState } from 'react';
-
-import ContactSupportIcon from '@mui/icons-material/ContactSupport';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
-import LightModeIcon from '@mui/icons-material/LightMode';
-import PagesIcon from '@mui/icons-material/Pages';
-import Button from '@mui/material/Button';
 
 const Navbar = () => {
   // Swap icons on darkmode toggle
@@ -30,43 +25,52 @@ const Navbar = () => {
   }, [fading, darkMode]);
 
   return (
-    <div className='wrapper'>
-      <nav className={styles.nav}>
-        <a className={styles.nav__logo} href='#'>
-          <PagesIcon sx={{ fontSize: 38 }} />
-          NeatReceipt
-        </a>
-        <ul className={styles.nav__list}>
-          <li className={styles.nav__list__item}>
-            <div className={styles.nav__list__item__link}>
+    <div className={`wrapper ${styles.navwrap}`}>
+      <div className='container'>
+        <nav className={styles.nav}>
+          <a className={styles.nav__logo} href='#'>
+            <img src='/images/logo_5.svg' alt='NeatReceipt' />
+          </a>
+          <ul className={styles.nav__list}>
+            <li className={styles.nav__list__item}>
               {darkMode ? (
-                <Button
+                <button
                   id='lightmode'
                   className={fading ? 'fade-out' : ''}
                   onClick={handleDarkModeToggle}
                 >
-                  <LightModeIcon sx={{ fontSize: 38 }} />
-                </Button>
+                  <img
+                    className={styles.nav__icon}
+                    src='/images/icon_light--white.svg'
+                    alt='NeatReceipt'
+                  />
+                </button>
               ) : (
-                <Button
+                <button
                   id='darkmode'
                   className={fading ? 'fade-out' : ''}
                   onClick={handleDarkModeToggle}
                 >
-                  <DarkModeIcon id='#darkmode' sx={{ fontSize: 38 }} />
-                </Button>
+                  <img
+                    className={styles.nav__icon}
+                    src='/images/icon_dark--white.svg'
+                    alt='NeatReceipt'
+                  />
+                </button>
               )}
-            </div>
-          </li>
-          <li className={styles.nav__list__item}>
-            <a className={styles.nav__list__item__link} href='#'>
-              <Button id='contact'>
-                <ContactSupportIcon sx={{ fontSize: 38 }} />
-              </Button>
-            </a>
-          </li>
-        </ul>
-      </nav>
+            </li>
+            <li className={styles.nav__list__item}>
+              <a className={styles.nav__list__item__link} href='#'>
+                <img
+                  className={styles.nav__icon}
+                  src='/images/icon_about--white.svg'
+                  alt='NeatReceipt'
+                />
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
   );
 };
