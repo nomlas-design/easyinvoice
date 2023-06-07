@@ -1,5 +1,28 @@
-$primary-color: #051f3a;
-$secondary-color: #f8f3f4;
-$orange-colour: rgb(249, 161, 36);
+$dark-primary: #152238;
+$dark-secondary: #192841;
+$dark-background: #1c2e4a;
+$dark-alternative: #203354;
+$orange-colour: #f9a124;
 
-$max-width: 1350px;
+$border-colour: #23395d;
+$border-lighter-colour: #354d81;
+
+/** 
+ *  Sizes
+ */
+
+//Type
+$font-sm: 1em;
+$font-md: 1.1em;
+$font-lg: 1.25em;
+
+$heading-spacing: 0.045rem;
+
+// Components
+$navbar-height: 4rem;
+$app-footer-height: 5rem;
+$sidebar-width: 30rem;
+
+//Globals
+$padding: 1.5rem;
+$max-width: 1250px;

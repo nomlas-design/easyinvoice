@@ -1,8 +1,15 @@
+@import '../../../styles/variables.scss';
+
 .navwrap {
-  background: rgba(10, 25, 41, 0.7);
-  margin-bottom: 2rem;
-  box-shadow: inset 0px -1px 1px #163759;
+  background-color: $dark-primary;
+  border-bottom: 1px solid $border-colour;
   width: 100%;
+  padding: 0 $padding;
+  height: $navbar-height;
+  position: relative;
+  z-index: 2;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+
   .nav {
     display: flex;
     flex-direction: row;
@@ -26,14 +33,20 @@
       margin: 0;
 
       &__item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 0.25rem;
+        border: 1px solid $border-colour;
+        width: 2rem;
+        height: 2rem;
         .nav__icon {
-          width: 1.5rem;
-          height: 1.5rem;
-          fill: #fff;
-          transition: fill 0.2s ease-in-out;
+          width: 1rem;
+          height: 1rem;
         }
 
         button {
+          display: none;
           background: none;
           border: none;
           cursor: pointer;

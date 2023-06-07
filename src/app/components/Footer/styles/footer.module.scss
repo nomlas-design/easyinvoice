@@ -1,0 +1,35 @@
+@import '../../../styles/variables.scss';
+
+.footer {
+  height: $app-footer-height;
+  grid-column: 2;
+  background: $dark-background;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 $padding;
+  position: relative;
+  //border-top: 1px solid $border-colour;
+  //box-shadow: rgba(0, 0, 0, 0.1) 0px -1px 2px 0px;
+
+  &__column {
+    color: white;
+  }
+
+  .btn--download {
+    background: $border-lighter-colour;
+    color: white;
+    font-size: $font-md;
+    border-color: #859bca;
+    letter-spacing: $heading-spacing;
+    //border-left: 1px solid $border-lighter-colour;
+  }
+}
+
+.container--footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}

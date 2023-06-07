@@ -1,4 +1,4 @@
-@import 'variables';
+@use './variables' as *;
 
 * {
   box-sizing: border-box;
@@ -12,15 +12,23 @@ body {
   width: 100%;
   overflow-x: hidden;
   color: #0c0c0c;
-}
-
-body {
-  background: $primary-color;
+  font-size: 1rem;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+// reset headings
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
 }
 
 .wrapper {
@@ -66,4 +74,18 @@ label {
   letter-spacing: 0.025rem;
   text-transform: uppercase;
   color: #0c0c0c;
+}
+
+.btn {
+  background: transparent;
+  outline: 0;
+  border: 0;
+  background-color: $dark-primary;
+  color: white;
+  border: 1px solid white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.35rem;
+  font-weight: 600;
+  letter-spacing: 0.02rem;
+  font-family: 'Poppins';
 }

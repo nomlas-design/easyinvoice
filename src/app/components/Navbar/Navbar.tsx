@@ -26,51 +26,49 @@ const Navbar = () => {
 
   return (
     <div className={`wrapper ${styles.navwrap}`}>
-      <div className='container'>
-        <nav className={styles.nav}>
-          <a className={styles.nav__logo} href='#'>
-            <img src='/images/logo_5.svg' alt='NeatReceipt' />
-          </a>
-          <ul className={styles.nav__list}>
-            <li className={styles.nav__list__item}>
-              {darkMode ? (
-                <button
-                  id='lightmode'
-                  className={fading ? 'fade-out' : ''}
-                  onClick={handleDarkModeToggle}
-                >
-                  <img
-                    className={styles.nav__icon}
-                    src='/images/icon_light--white.svg'
-                    alt='NeatReceipt'
-                  />
-                </button>
-              ) : (
-                <button
-                  id='darkmode'
-                  className={fading ? 'fade-out' : ''}
-                  onClick={handleDarkModeToggle}
-                >
-                  <img
-                    className={styles.nav__icon}
-                    src='/images/icon_dark--white.svg'
-                    alt='NeatReceipt'
-                  />
-                </button>
-              )}
-            </li>
-            <li className={styles.nav__list__item}>
-              <a className={styles.nav__list__item__link} href='#'>
+      <nav className={styles.nav}>
+        <a className={styles.nav__logo} href='#'>
+          <img src='/images/logo_5.svg' alt='NeatReceipt' />
+        </a>
+        <ul className={styles.nav__list}>
+          <li className={styles.nav__list__item}>
+            {darkMode ? (
+              <button
+                id='lightmode'
+                className={fading ? 'fade-out' : ''}
+                onClick={handleDarkModeToggle}
+              >
                 <img
                   className={styles.nav__icon}
-                  src='/images/icon_about--white.svg'
+                  src='/images/icon_light--white.svg'
                   alt='NeatReceipt'
                 />
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+              </button>
+            ) : (
+              <button
+                id='darkmode'
+                className={fading ? 'fade-out' : ''}
+                onClick={handleDarkModeToggle}
+              >
+                <img
+                  className={styles.nav__icon}
+                  src='/images/icon_dark--white.svg'
+                  alt='NeatReceipt'
+                />
+              </button>
+            )}
+          </li>
+          <li className={styles.nav__list__item}>
+            <a className={styles.nav__list__item__link} href='#'>
+              <img
+                className={styles.nav__icon}
+                src='/images/icon_about--white.svg'
+                alt='NeatReceipt'
+              />
+            </a>
+          </li>
+        </ul>
+      </nav>
     </div>
   );
 };

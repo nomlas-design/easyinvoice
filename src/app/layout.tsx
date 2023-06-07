@@ -1,6 +1,7 @@
 'use client';
 
 import './styles/globals.scss';
+import styles from './styles/home.module.scss';
 import { ThemeProvider } from '@mui/material/styles';
 import { lightTheme } from './themes/lightTheme';
 import { Poppins } from 'next/font/google';
@@ -37,7 +38,7 @@ export default function RootLayout({
         />
       </Head>
       <ThemeProvider theme={lightTheme}>
-        <body className={poppins.className}>
+        <body className={`${styles.app} ${poppins.className}`}>
           <Navbar />
           {children}
         </body>

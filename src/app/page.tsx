@@ -3,6 +3,7 @@
 import styles from './styles/home.module.scss';
 import FormWrapper from './components/InvoiceForm/FormWrapper';
 import InvoicePreview from './components/InvoicePreview/InvoicePreview';
+import Footer from './components/Footer/Footer';
 import { useEffect, useState } from 'react';
 
 export default function Home() {
@@ -13,15 +14,10 @@ export default function Home() {
   };
 
   return (
-    <main>
-      <div className='wrapper'>
-        <div className='container'>
-          <div className={styles.appwrap}>
-            <FormWrapper onFormDataChange={handleFormDataChange} />
-            <InvoicePreview formData={formData} />
-          </div>
-        </div>
-      </div>
+    <main className={styles.appgrid}>
+      <FormWrapper onFormDataChange={handleFormDataChange} />
+      <InvoicePreview formData={formData} />
+      <Footer />
     </main>
   );
 }

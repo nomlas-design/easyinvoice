@@ -1,65 +1,125 @@
-.invoicepreview {
-  font-size: 1.25vh;
+@import '../../../styles/variables';
+
+.invoicepreview__wrap {
+  background: $dark-background;
+  gap: 1rem;
+  height: calc(100vh - $navbar-height - $app-footer-height);
+  overflow-y: auto;
   padding: 2rem 3rem;
-  // border: 1px solid #e1e1e1;
-  // border-radius: 0.5rem;
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 12px 3px;
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-  background: white;
+  width: 100%;
+  position: relative;
 
-  &__row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-
-    &__item {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 1.25rem;
-    }
-  }
-
-  &__column {
+  .container--invoicepreview {
     display: flex;
     flex-direction: column;
-
-    &__item {
-    }
-  }
-
-  // Individual styles
-
-  &__fontlight {
-    color: rgb(93, 93, 93);
-  }
-
-  &__box {
+    gap: 2rem;
     width: 100%;
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 1.5rem;
-    padding: 1rem;
-  }
 
-  &__logo {
-    position: relative;
-    width: 40px;
-    height: 40px;
-  }
+    .invoicepreview__cta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 600;
 
-  &__company {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #0c0c0c;
-  }
+      .btn__download {
+        background: $orange-colour;
+        color: $dark-primary;
+        font-family: 'Poppins';
+      }
+    }
 
-  &__email {
+    .invoicepreview {
+      position: relative;
+      font-size: 1.25vh;
+      padding: 2rem 3rem;
+      // border: 1px solid #e1e1e1;
+      // border-radius: 0.5rem;
+      box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 12px 3px;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+      background: white;
+      height: 500px;
+
+      .invoicepreview__initial {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        color: $dark-primary;
+        background: rgba(251, 251, 255, 0.9);
+        // blur background
+        backdrop-filter: blur(2px);
+        left: 0;
+        top: 0;
+        z-index: 3;
+        display: flex;
+        padding: 2rem 3rem;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: $font-lg;
+
+        span {
+          font-size: $font-md;
+        }
+      }
+
+      &__row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+
+        &__item {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 1.25rem;
+        }
+      }
+
+      &__column {
+        display: flex;
+        flex-direction: column;
+
+        &__item {
+        }
+      }
+
+      // Individual styles
+
+      &__fontlight {
+        color: rgb(93, 93, 93);
+      }
+
+      &__box {
+        width: 100%;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 1.5rem;
+        padding: 1rem;
+      }
+
+      &__logo {
+        position: relative;
+        width: 40px;
+        height: 40px;
+      }
+
+      &__company {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #0c0c0c;
+      }
+
+      &__email {
+      }
+    }
   }
 }

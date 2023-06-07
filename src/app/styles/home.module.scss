@@ -1,10 +1,14 @@
 @import 'variables';
 
-.appwrap {
-  width: 100%;
-  display: grid;
-  grid-template-columns: minmax(auto, 480px) minmax(auto, 1200px);
-  gap: 2rem;
-  min-height: 100vh;
-  align-items: start;
+.app {
+  max-height: 100vh;
+  overflow-y: hidden;
+  .appgrid {
+    display: grid;
+    grid-template-columns: $sidebar-width 1fr;
+    grid-template-rows: 1fr $app-footer-height;
+    width: 100%;
+    display: grid;
+    align-items: start;
+  }
 }

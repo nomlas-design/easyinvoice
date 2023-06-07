@@ -48,12 +48,21 @@ const InputAccordion = ({ children, name, id, expanded, onChange }: Props) => {
     <div className={styles.accordion}>
       <h3 className={styles.accordion__title}>
         <button
+          className={`${styles.accordion__btn}
+                  ${isVisible && styles['accordion__btn--open']}`}
           id={id}
           aria-expanded={isOpen}
           aria-controls='accordion-panel-1'
           onClick={toggleAccordion}
         >
-          {name}
+          <div className={styles.accordion__btn__row}>
+            <img
+              className={styles.nav__icon}
+              src='/images/logo_2.svg'
+              alt='NeatReceipt'
+            />
+            {name}
+          </div>
           <div className={iconClass} />
         </button>
       </h3>
