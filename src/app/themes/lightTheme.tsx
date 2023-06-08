@@ -20,10 +20,17 @@ export const lightTheme = createTheme({
     MuiInputBase: {
       styleOverrides: {
         root: {
+          background: '#fff',
           input: {
-            // input padding
             padding: '0.6rem 0.8rem',
           },
+        },
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        select: {
+          padding: '0.6rem 0.8rem',
         },
       },
     },

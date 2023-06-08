@@ -1,5 +1,7 @@
 import InputDetails from './InputDetails/InputDetails';
+import InvoiceItems from './InputItems/InvoiceItems';
 import InputAccordion from './InputAccordion';
+import styles from './styles/sidebar.module.scss';
 import { useState } from 'react';
 import { Accordion } from '@szhsin/react-accordion';
 
@@ -18,18 +20,18 @@ const InvoiceForm = ({ onInputChange }: InvoiceFormProps) => {
 
   return (
     <>
-      <Accordion transition transitionTimeout={250}>
+      <Accordion
+        className={styles.accordion}
+        transition
+        transitionTimeout={250}
+      >
         <InputAccordion
           name='Invoice Details'
           id='invoice_details'
           expanded={expanded === 'invoice_details'}
           onChange={handleChange('invoice_details')}
         >
-          <InputDetails
-            id='invoice_details'
-            expanded={expanded === 'invoice_details'}
-            onInputChange={onInputChange}
-          />
+          <InputDetails id='invoice_details' onInputChange={onInputChange} />
         </InputAccordion>
         <InputAccordion
           name='Billing Items'
@@ -37,7 +39,7 @@ const InvoiceForm = ({ onInputChange }: InvoiceFormProps) => {
           expanded={expanded === 'invoice_items'}
           onChange={handleChange('invoice_items')}
         >
-          Hi
+          <InvoiceItems id='invoice_items' />
         </InputAccordion>
         <InputAccordion
           name='Logo and Colours'

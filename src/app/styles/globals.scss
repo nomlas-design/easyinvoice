@@ -33,6 +33,15 @@ h6 {
   margin: 0;
 }
 
+// reset button
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -69,7 +78,8 @@ textarea {
   }
 }
 
-label {
+label,
+.label {
   font-size: 0.8rem;
   font-weight: 600;
   margin-bottom: 0.5rem;

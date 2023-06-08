@@ -1,6 +1,6 @@
 import styles from './styles/sidebar.module.scss';
 import { AccordionItem as Item } from '@szhsin/react-accordion';
-import ChevronDown from './chevron-down.svg';
+import ChevronDown from './images/chevron-down.svg';
 
 interface Props {
   children: React.ReactNode;
