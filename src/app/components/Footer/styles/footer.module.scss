@@ -18,11 +18,10 @@
   }
 
   .btn--download {
-    background: $border-lighter-colour;
-    color: white;
-    font-size: $font-md;
+    background: $orange-colour;
+    color: $dark-primary;
+    font-size: $font-sm;
     border-color: #859bca;
-    letter-spacing: $heading-spacing;
     //border-left: 1px solid $border-lighter-colour;
   }
 }
