@@ -1,8 +1,6 @@
-import { useEffect, useState } from 'react';
 import styles from './styles/sidebar.module.scss';
-import { CSSTransition } from 'react-transition-group';
-import { Accordion, AccordionItem as Item } from '@szhsin/react-accordion';
-import ChevronDown from './images/chevron-down.svg';
+import { AccordionItem as Item } from '@szhsin/react-accordion';
+import ChevronDown from './chevron-down.svg';
 
 interface Props {
   children: React.ReactNode;
@@ -41,6 +39,7 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ header, ...rest }) => (
 const InputAccordion = ({ children, name, id, expanded, onChange }: Props) => {
   return (
     <AccordionItem
+      itemKey={id}
       header={name}
       {...(expanded ? { initialEntered: true } : {})}
     >
