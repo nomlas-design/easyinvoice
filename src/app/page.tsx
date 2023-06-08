@@ -7,15 +7,22 @@ import Footer from './components/Footer/Footer';
 import { useEffect, useState } from 'react';
 
 export default function Home() {
-  const [formData, setFormData] = useState<Record<string, string> | null>(null);
+  const [formData, setFormData] = useState<Record<string, string>>({});
 
-  const handleFormDataChange = (newFormData: Record<string, string> | null) => {
-    setFormData(newFormData);
+  const handleInputChange = (id: string, value: string) => {
+    setFormData((prevState) => {
+      const newState = { ...prevState, [id]: value };
+      return value === '' ? (delete newState[id], newState) : newState;
+    });
   };
+
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
 
   return (
     <main className={styles.appgrid}>
-      <FormWrapper onFormDataChange={handleFormDataChange} />
+      <FormWrapper onInputChange={handleInputChange} />
       <InvoicePreview formData={formData} />
       <Footer />
     </main>

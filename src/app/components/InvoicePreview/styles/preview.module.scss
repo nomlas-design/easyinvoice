@@ -36,12 +36,14 @@
       padding: 2rem 3rem;
       // border: 1px solid #e1e1e1;
       // border-radius: 0.5rem;
-      box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 12px 3px;
       display: flex;
       flex-direction: column;
       gap: 2.5rem;
       background: white;
       height: 500px;
+      box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 12px 3px,
+        rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+        rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 
       .invoicepreview__initial {
         position: absolute;
@@ -64,6 +66,12 @@
 
         span {
           font-size: $font-md;
+        }
+
+        &__arrow {
+          height: 6rem;
+          fill: $dark-alternative;
+          margin-right: 4rem;
         }
       }
 
@@ -116,10 +124,31 @@
         font-size: 1.5rem;
         font-weight: 700;
         color: #0c0c0c;
+        line-height: 1.2;
       }
 
       &__email {
       }
     }
   }
+}
+
+// Animations
+
+.fadeEnter {
+  opacity: 0;
+}
+
+.fadeEnterActive {
+  opacity: 1;
+  transition: opacity 300ms;
+}
+
+.fadeExit {
+  opacity: 1;
+}
+
+.fadeExitActive {
+  opacity: 0;
+  transition: opacity 300ms;
 }

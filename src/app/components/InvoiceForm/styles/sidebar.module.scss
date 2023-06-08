@@ -7,6 +7,10 @@
   &__input {
     display: flex;
     flex-direction: column;
+
+    label {
+      color: white;
+    }
   }
 }
 
@@ -23,92 +27,49 @@
   border-right: 1px solid $border-colour;
   box-shadow: rgba(0, 0, 0, 0.1) 1px 0px 2px 0px;
 
+  .accordion__chevron {
+    margin-left: auto;
+    transition: transform 0.25s cubic-bezier(0, 0, 0, 1);
+  }
+
   .accordion {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
-
-    &__content {
-      padding: 1rem;
-      border-radius: 0.65rem;
+    gap: 1rem;
+    &__header {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
       width: 100%;
-      box-shadow: rgba(0, 0, 0, 0.04) 0px 1px 4px, inset 0px 0px 2px #163759;
-      background-color: $dark-alternative;
-      opacity: 0;
-      max-height: 0;
-      overflow: hidden;
+      margin: 0;
+      padding: $padding 1rem;
+      font-size: $font-sm;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      text-align: left;
       color: white;
-      transition: opacity 0.2s, height 0.2s;
+      background-color: transparent;
+      border: none;
+      border-radius: 0.5rem;
 
-      label {
-        color: white;
+      &:hover {
+        background-color: $dark-primary;
+      }
+
+      &--expanded {
+        .accordion__chevron {
+          transform: rotate(180deg);
+        }
       }
     }
 
-    &__content_open {
-      max-height: 100%;
-      opacity: 1;
+    &__body {
+      transition: height 0.25s cubic-bezier(0, 0, 0, 1);
     }
 
-    &__title {
-      width: 100%;
-
-      .accordion__icon {
-        width: 0;
-        height: 0;
-        border-left: 0.45rem solid transparent;
-        border-right: 0.45rem solid transparent;
-        border-top: 0.45rem solid white;
-        transform: rotate(-90deg);
-      }
-
-      .accordion__icon_open {
-        transform: rotate(0deg);
-      }
-
-      .accordion__btn {
-        cursor: pointer;
-        background: none;
-        border: none;
-        font-size: $font-md;
-        font-weight: 600;
-        color: white;
-        opacity: 0.8;
-        letter-spacing: $heading-spacing;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem 1rem;
-        border-radius: 0.65rem;
-        background-color: transparent;
-        transition: opacity 0.1s ease-out, background-color 0.075s ease-out;
-        font-family: 'Poppins', sans-serif;
-
-        &:hover {
-          background-color: $dark-primary;
-          opacity: 1;
-        }
-
-        &:active {
-          background-color: rgba(207, 207, 207, 0.037);
-        }
-
-        &__row {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-
-          img {
-            width: 1rem;
-            height: 1rem;
-          }
-        }
-
-        &--open {
-          opacity: 1;
-        }
-      }
+    &__panel {
+      background: $border-colour;
+      padding: 1rem;
     }
   }
 }

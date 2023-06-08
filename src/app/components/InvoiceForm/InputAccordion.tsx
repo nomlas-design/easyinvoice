@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
 import styles from './styles/sidebar.module.scss';
+import { CSSTransition } from 'react-transition-group';
+import { Accordion, AccordionItem as Item } from '@szhsin/react-accordion';
+import ChevronDown from './images/chevron-down.svg';
 
 interface Props {
   children: React.ReactNode;
@@ -9,70 +12,40 @@ interface Props {
   onChange: (event: React.ChangeEvent<{}>, isExpanded: boolean) => void;
 }
 
+interface AccordionItemProps {
+  header: string;
+  [x: string]: any;
+}
+
+const AccordionItem: React.FC<AccordionItemProps> = ({ header, ...rest }) => (
+  <Item
+    {...rest}
+    header={
+      <>
+        {header}
+        <ChevronDown className={styles.accordion__chevron} />
+      </>
+    }
+    className={styles.accordion}
+    buttonProps={{
+      className: ({ isEnter }) =>
+        `${styles.accordion__header} ${
+          isEnter && styles['accordion__header--expanded']
+        }`,
+    }}
+    contentProps={{ className: styles.accordion__body }}
+    panelProps={{ className: styles.accordion__panel }}
+  />
+);
+
 const InputAccordion = ({ children, name, id, expanded, onChange }: Props) => {
-  const [isOpen, setIsOpen] = useState(expanded);
-  const [isVisible, setIsVisible] = useState(expanded);
-
-  const toggleAccordion = () => {
-    if (isOpen) {
-      setIsOpen(false);
-      // When closing, delay setting isVisible to false until transition is complete
-      setTimeout(() => setIsVisible(false), 200);
-    } else {
-      setIsVisible(true);
-      // When opening, set isVisible to true immediately and setOpen after transition
-      setTimeout(() => setIsOpen(true), 200);
-    }
-    onChange({}, !isOpen);
-  };
-
-  useEffect(() => {
-    if (expanded) {
-      setIsOpen(true);
-      setTimeout(() => setIsVisible(true), 200);
-    } else {
-      setIsVisible(false);
-      setTimeout(() => setIsOpen(false), 200);
-    }
-  }, [expanded]);
-
-  const contentClass = isOpen
-    ? `${styles.accordion__content} ${styles.accordion__content_open}`
-    : styles.accordion__content;
-
-  const iconClass = isOpen
-    ? `${styles.accordion__icon} ${styles.accordion__icon_open}`
-    : styles.accordion__icon;
-
   return (
-    <div className={styles.accordion}>
-      <h3 className={styles.accordion__title}>
-        <button
-          className={`${styles.accordion__btn}
-                  ${isVisible && styles['accordion__btn--open']}`}
-          id={id}
-          aria-expanded={isOpen}
-          aria-controls='accordion-panel-1'
-          onClick={toggleAccordion}
-        >
-          <div className={styles.accordion__btn__row}>
-            <img
-              className={styles.nav__icon}
-              src='/images/logo_2.svg'
-              alt='NeatReceipt'
-            />
-            {name}
-          </div>
-          <div className={iconClass} />
-        </button>
-      </h3>
-      <div
-        className={contentClass}
-        style={{ display: isVisible ? 'block' : 'none' }}
-      >
-        {children}
-      </div>
-    </div>
+    <AccordionItem
+      header={name}
+      {...(expanded ? { initialEntered: true } : {})}
+    >
+      {children}
+    </AccordionItem>
   );
 };
 

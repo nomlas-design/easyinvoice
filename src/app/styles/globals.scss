@@ -1,4 +1,5 @@
 @use './variables' as *;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
 * {
   box-sizing: border-box;
@@ -13,6 +14,7 @@ body {
   overflow-x: hidden;
   color: #0c0c0c;
   font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
 }
 
 a {
@@ -88,4 +90,24 @@ label {
   font-weight: 600;
   letter-spacing: 0.02rem;
   font-family: 'Poppins';
+}
+
+// CSS Animations
+
+.fade-enter {
+  opacity: 0;
+  transition: opacity 300ms ease-in;
+}
+
+.fade-enter-active {
+  opacity: 1;
+}
+
+.fade-exit {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+
+.exit-active {
+  opacity: 0;
 }

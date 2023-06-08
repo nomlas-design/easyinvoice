@@ -3,46 +3,56 @@
 'use client';
 
 import styles from './styles/preview.module.scss';
+import Arrow from './arrow_curve.svg';
+
 import {
   generateBackground,
   generateTextBackgroundColour,
   generateTextColour,
 } from '../../lib/configureColours';
 
+import { CSSTransition } from 'react-transition-group';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 export default function InvoicePreview({
   formData,
 }: {
-  formData: Record<string, string> | null;
+  formData: Record<string, string>;
 }) {
-  const [background, setBackground] = useState<string>('#0c0c0c');
-  const [textBackgroundColour, setTextBackgroundColour] =
-    useState<string>('#ffffff');
-  const [textColour, setTextColour] = useState<string>('#0c0c0c');
-
+  const [showOverlay, setShowOverlay] = useState(true);
+  // Determine if formData is empty or not
   useEffect(() => {
-    setBackground(generateBackground(formData?.colour));
-    setTextBackgroundColour(generateTextBackgroundColour(formData?.colour));
-    setTextColour(generateTextColour(formData?.colour));
+    !formData || Object.keys(formData).length === 0
+      ? setShowOverlay(true)
+      : setShowOverlay(false);
   }, [formData]);
 
   return (
     <div className={styles.invoicepreview__wrap}>
       <div className='wrapper'>
         <div className={`container ${styles['container--invoicepreview']}`}>
-          {/* <div className={styles.invoicepreview__cta}>
-            Generated Preview
-            <button className={`btn ${styles.btn__download}`}>
-              Download PDF
-            </button>
-          </div> */}
           <div className={styles.invoicepreview}>
-            <div className={styles.invoicepreview__initial}>
-              <h1>Let&#39;s create your invoice!</h1>
-              <span> Start adding details to get started.</span>
-            </div>
+            <CSSTransition
+              in={showOverlay}
+              timeout={300}
+              classNames={{
+                enter: styles.fadeEnter,
+                enterActive: styles.fadeEnterActive,
+                exit: styles.fadeExit,
+                exitActive: styles.fadeExitActive,
+              }}
+              unmountOnExit
+            >
+              <div className={styles.invoicepreview__initial}>
+                <Arrow
+                  fill='red'
+                  className={styles.invoicepreview__initial__arrow}
+                />
+                <h1>Let&#39;s create your invoice!</h1>
+                <span> Start adding details to get started.</span>
+              </div>
+            </CSSTransition>
             <div
               className={`${styles.invoicepreview__row} ${styles.invoicepreview__fontlight}`}
             >
@@ -56,11 +66,8 @@ export default function InvoicePreview({
                   />
                 </div>
                 <div className={styles.invoicepreview__column}>
-                  <div
-                    style={{ color: textColour }}
-                    className={styles.invoicepreview__company}
-                  >
-                    {formData ? formData.company_name : 'NeatReceipt'}
+                  <div className={styles.invoicepreview__company}>
+                    {formData.company_name || 'NeatReceipt'}
                   </div>
                   <div className={styles.invoicepreview__email}>
                     you@example.com
@@ -75,12 +82,7 @@ export default function InvoicePreview({
               </div>
             </div>
             <div className={styles.invoicepreview__row}>
-              <div
-                style={{ background: background }}
-                className={styles.invoicepreview__box}
-              >
-                <h1 style={{ color: textBackgroundColour }}>Text Preview</h1>
-              </div>
+              <div className={styles.invoicepreview__box}></div>
             </div>
           </div>
         </div>
