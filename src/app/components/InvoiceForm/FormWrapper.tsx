@@ -6,12 +6,22 @@ import { useEffect, useState } from 'react';
 
 interface FormWrapperProps {
   onInputChange: (id: string, value: string) => void;
+  currency: string;
+  billingMethod: string;
 }
 
-const FormWrapper = ({ onInputChange }: FormWrapperProps) => {
+const FormWrapper = ({
+  onInputChange,
+  currency,
+  billingMethod,
+}: FormWrapperProps) => {
   return (
     <div className={styles.sidebar}>
-      <InvoiceForm onInputChange={onInputChange} />
+      <InvoiceForm
+        onInputChange={onInputChange}
+        currency={currency}
+        billingMethod={billingMethod}
+      />
     </div>
   );
 };

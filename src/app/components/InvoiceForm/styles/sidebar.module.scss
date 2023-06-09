@@ -4,12 +4,17 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 1rem;
+
   &__input {
     display: flex;
     flex-direction: column;
 
     label {
       color: white;
+    }
+
+    &__readonly {
+      cursor: default;
     }
   }
 
@@ -35,9 +40,20 @@
     }
   }
 
+  &__icon {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    align-items: center;
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  }
+
   &__delete {
-    background: transparent;
-    border: 1px solid #859bca;
+    background: #d25050;
+    border: 1px solid #d39c9c;
     border-radius: 0.25rem;
     height: 44.5px;
     align-self: end;
@@ -48,13 +64,44 @@
     transition: background 0.25s cubic-bezier(0, 0, 0, 1);
 
     &:hover {
-      background: $dark-background;
+      background: #c13535;
     }
 
     svg {
       fill: white;
       width: 1.25rem;
       height: 1.25rem;
+    }
+  }
+}
+
+.inputitems {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  &__add {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    font-size: $font-sm;
+    height: 44.5px;
+    width: 44.5px;
+    align-self: center;
+    background-color: $orange-colour;
+    color: white;
+    border-color: $border-lighter-colour;
+    transition: background-color 0.2s cubic-bezier(1, 0, 0, 1);
+    padding: 0;
+
+    &:hover {
+      background-color: $dark-primary;
+    }
+
+    svg {
+      width: 1.25rem;
+      fill: $dark-alternative;
     }
   }
 }

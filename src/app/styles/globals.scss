@@ -89,11 +89,10 @@ label,
 }
 
 .btn {
-  background: transparent;
   outline: 0;
   border: 0;
-  background-color: $dark-primary;
-  color: white;
+  background-color: $orange-colour;
+  color: $dark-primary;
   border: 1px solid white;
   padding: 0.5rem 1rem;
   border-radius: 0.35rem;

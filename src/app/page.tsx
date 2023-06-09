@@ -7,23 +7,35 @@ import Footer from './components/Footer/Footer';
 import { useEffect, useState } from 'react';
 
 export default function Home() {
-  const [formData, setFormData] = useState<Record<string, string>>({});
+  const [inputDetails, setInputDetails] = useState<Record<string, string>>({});
+  const [currency, setCurrency] = useState<string>('AUD');
+  const [billingMethod, setBillingMethod] = useState<string>('Hourly');
 
   const handleInputChange = (id: string, value: string) => {
-    setFormData((prevState) => {
+    if (id === 'currency') {
+      setCurrency(value);
+    } else if (id === 'billing_method') {
+      setBillingMethod(value);
+    }
+
+    setInputDetails((prevState) => {
       const newState = { ...prevState, [id]: value };
       return value === '' ? (delete newState[id], newState) : newState;
     });
   };
 
   useEffect(() => {
-    console.log(formData);
-  }, [formData]);
+    console.log(inputDetails);
+  }, [inputDetails]);
 
   return (
     <main className={styles.appgrid}>
-      <FormWrapper onInputChange={handleInputChange} />
-      <InvoicePreview formData={formData} />
+      <FormWrapper
+        onInputChange={handleInputChange}
+        currency={currency}
+        billingMethod={billingMethod}
+      />
+      <InvoicePreview inputDetails={inputDetails} />
       <Footer />
     </main>
   );

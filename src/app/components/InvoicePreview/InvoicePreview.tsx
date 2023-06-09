@@ -16,17 +16,20 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 export default function InvoicePreview({
-  formData,
+  inputDetails,
 }: {
-  formData: Record<string, string>;
+  inputDetails: Record<string, string>;
 }) {
   const [showOverlay, setShowOverlay] = useState(true);
-  // Determine if formData is empty or not
+
   useEffect(() => {
-    !formData || Object.keys(formData).length === 0
+    const relevantKeys = Object.keys(inputDetails).filter(
+      (key) => key !== 'currency' && key !== 'billing_method'
+    );
+    !inputDetails || relevantKeys.length === 0
       ? setShowOverlay(true)
       : setShowOverlay(false);
-  }, [formData]);
+  }, [inputDetails]);
 
   return (
     <div className={styles.invoicepreview__wrap}>
@@ -60,14 +63,14 @@ export default function InvoicePreview({
                 <div className={styles.invoicepreview__logo}>
                   <Image
                     src='/images/logo_2.svg'
-                    alt={formData ? formData.company_name : 'Logo'}
+                    alt={inputDetails ? inputDetails.company_name : 'Logo'}
                     fill={true}
                     style={{ objectFit: 'contain' }}
                   />
                 </div>
                 <div className={styles.invoicepreview__column}>
                   <div className={styles.invoicepreview__company}>
-                    {formData.company_name || 'NeatReceipt'}
+                    {inputDetails.company_name || 'NeatReceipt'}
                   </div>
                   <div className={styles.invoicepreview__email}>
                     you@example.com

@@ -1,113 +1,65 @@
-'use client';
-
-import { useState, useEffect } from 'react';
-import InputDetail from '../InputDetails/InputDetail';
+import { useState } from 'react';
 import styles from '../styles/sidebar.module.scss';
-import Delete from './delete.svg';
+import InvoiceItem, { InvoiceItemProps } from './InvoiceItem';
+import Add from '../Images/add.svg';
 
-function convertAmount(unitCost: number, quantity: number) {
-  return unitCost * quantity;
-}
+import Tooltip from '@mui/material/Tooltip';
+import Fade from '@mui/material/Fade';
 
-interface InvoiceItemProps {
-  id: string;
-}
+const InvoiceItems = () => {
+  const [invoiceItems, setInvoiceItems] = useState<InvoiceItemProps[]>([
+    {
+      id: 'invoice_item--1',
+      currency: 'AUD',
+      billingMethod: 'hours',
+      onInputChange: () => {},
+    },
+  ]);
 
-const InvoiceItems = ({ id }: InvoiceItemProps) => {
+  const handleAddInvoiceItem = () => {
+    const newItem = {
+      id: `invoice_item--${invoiceItems.length + 1}`,
+      currency: 'USD',
+      billingMethod: 'hours',
+      onInputChange: () => {},
+    };
+    setInvoiceItems((prevItems) => [...prevItems, newItem]);
+  };
+
+  const handleRemoveInvoiceItem = (id: string) => {
+    setInvoiceItems((prevItems) => prevItems.filter((item) => item.id !== id));
+    setInvoiceItems((prevItems) =>
+      prevItems.map((item, index) => ({
+        ...item,
+        id: `invoice_item--${index + 1}`,
+      }))
+    );
+  };
+
   return (
-    <form
-      id={id}
-      aria-labelledby={id}
-      className={`${styles.inputdetails} ${styles.accordion__body}`}
-    >
-      <div className={styles.inputdetails__spread}>
-        <InputDetail
-          label='Item Description'
-          id='item_description'
-          type='text'
-          placeholder=''
+    <div className={styles.inputitems}>
+      {invoiceItems.map((item) => (
+        <InvoiceItem
+          key={item.id}
+          {...item}
+          onInputChange={handleRemoveInvoiceItem}
+          onRemove={handleRemoveInvoiceItem}
         />
-      </div>
-      <div className={styles.inputdetails__itemgrid}>
-        <InputDetail
-          label='Rate/Hr'
-          id='item_cost'
-          type='number'
-          placeholder='0.00'
-        />
-        <InputDetail
-          label='Hours'
-          id='item_qty'
-          type='number'
-          placeholder='0.00'
-        />
-        <InputDetail
-          label='Unit Cost'
-          id='item_amount'
-          type='number'
-          placeholder='0.00'
-        />
-        <button className={styles.inputdetails__delete}>
-          <Delete />
+      ))}
+      <Tooltip
+        title='Add Item'
+        TransitionComponent={Fade}
+        TransitionProps={{ timeout: 400 }}
+        arrow
+      >
+        <button
+          className={`btn ${styles.inputitems__add}`}
+          onClick={handleAddInvoiceItem}
+        >
+          <Add />
         </button>
-      </div>
-    </form>
-    // <Grid container spacing={2} sx={{ mb: 2 }}>
-    //   <Grid item xs={12} md={4}>
-    //     <TextField
-    //       id={`item-description-${id}`}
-    //       label='Item Description'
-    //       variant='outlined'
-    //       sx={{ width: '100%' }}
-    //     />
-    //   </Grid>
-    //   <Grid item xs={12} md={2}>
-    //     <TextField
-    //       id={`unit-cost-${id}`}
-    //       label={billingMethod === 'hourly' ? 'Rate/Hr' : 'Unit Cost'}
-    //       type='number'
-    //       sx={{ width: '100%' }}
-    //       InputLabelProps={{
-    //         shrink: true,
-    //       }}
-    //       onChange={(e) => setUnitCost(Number(e.target.value))}
-    //     />
-    //   </Grid>
-    //   <Grid item xs={12} md={2}>
-    //     <TextField
-    //       id={`quantity-${id}`}
-    //       label={billingMethod === 'hourly' ? 'Hours' : 'Quantity'}
-    //       type='number'
-    //       sx={{ width: '100%' }}
-    //       InputLabelProps={{
-    //         shrink: true,
-    //       }}
-    //       onChange={(e) => setQuantity(Number(e.target.value))}
-    //     />
-    //   </Grid>
-    //   <Grid item xs={12} md={3}>
-    //     <TextField
-    //       id={`amount-${id}`}
-    //       label='Amount'
-    //       sx={{ width: '100%' }}
-    //       value={amount}
-    //       InputProps={{
-    //         readOnly: true,
-    //       }}
-    //     />
-    //   </Grid>
-    //   <Grid item xs={12} md={1}>
-    //     <Tooltip title='Delete Item'>
-    //       <Fab
-    //         color='secondary'
-    //         aria-label='Delete Item'
-    //         onClick={handleDelete}
-    //       >
-    //         <DeleteIcon />
-    //       </Fab>
-    //     </Tooltip>
-    //   </Grid>
-    // </Grid>
+      </Tooltip>
+    </div>
   );
 };
 

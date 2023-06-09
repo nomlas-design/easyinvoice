@@ -7,9 +7,15 @@ import { Accordion } from '@szhsin/react-accordion';
 
 interface InvoiceFormProps {
   onInputChange: (id: string, value: string) => void;
+  currency: string;
+  billingMethod: string;
 }
 
-const InvoiceForm = ({ onInputChange }: InvoiceFormProps) => {
+const InvoiceForm = ({
+  onInputChange,
+  currency,
+  billingMethod,
+}: InvoiceFormProps) => {
   // only allow one accordion to be open at a time
   const [expanded, setExpanded] = useState<string | false>('invoice_details');
 
@@ -39,7 +45,20 @@ const InvoiceForm = ({ onInputChange }: InvoiceFormProps) => {
           expanded={expanded === 'invoice_items'}
           onChange={handleChange('invoice_items')}
         >
-          <InvoiceItems id='invoice_items' />
+          <InvoiceItems
+            currency={currency}
+            billingMethod={billingMethod}
+            id='invoice_items'
+            onInputChange={onInputChange}
+          />
+        </InputAccordion>
+        <InputAccordion
+          name='Billing Details'
+          id='invoice_billing'
+          expanded={expanded === 'invoice_billing'}
+          onChange={handleChange('invoice_billing')}
+        >
+          Hi
         </InputAccordion>
         <InputAccordion
           name='Logo and Colours'

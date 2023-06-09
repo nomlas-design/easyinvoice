@@ -3,11 +3,19 @@ import styles from '../styles/sidebar.module.scss';
 import InputDetail from './InputDetail';
 import DateInput from './DateInput';
 
+import FlagUs from '../Images/us.svg';
+import FlagAu from '../Images/au.svg';
+import FlagUk from '../Images/uk.svg';
+import FlagEu from '../Images/eu.svg';
+import FlagNz from '../Images/nz.svg';
+import FlagJp from '../Images/jp.svg';
+
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Flag } from '@material-ui/icons';
 
 interface Props {
   id: string;
@@ -16,14 +24,24 @@ interface Props {
 
 const InputDetails = ({ id, onInputChange }: Props) => {
   const [currency, setCurrency] = useState('AUD');
-  const [billingMethod, setBillingMethod] = useState('Hourly');
+  const [billingMethod, setBillingMethod] = useState('hours');
+
+  useEffect(() => {
+    // Call onInputChange with initial values when the component mounts
+    onInputChange('currency', currency);
+    onInputChange('billing_method', billingMethod);
+  }, []);
 
   const handleCurrencyChange = (event: SelectChangeEvent) => {
-    setCurrency(event.target.value as string);
+    const value = event.target.value as string;
+    setCurrency(value);
+    onInputChange('currency', value);
   };
 
   const handleBillingMethodChange = (event: SelectChangeEvent) => {
-    setBillingMethod(event.target.value as string);
+    const value = event.target.value as string;
+    setBillingMethod(value);
+    onInputChange('billing_method', value);
   };
 
   return (
@@ -85,12 +103,32 @@ const InputDetails = ({ id, onInputChange }: Props) => {
           id='currency'
           value={currency}
           onChange={handleCurrencyChange}
+          className={styles.inputdetails__icon}
         >
-          <MenuItem value={'AUD'}>AUD</MenuItem>
-          <MenuItem value={'USD'}>USD</MenuItem>
-          <MenuItem value={'EUR'}>EUR</MenuItem>
-          <MenuItem value={'GBP'}>GBP</MenuItem>
-          <MenuItem value={'JPY'}>JPY</MenuItem>
+          <MenuItem className={styles.inputdetails__icon} value={'AUD'}>
+            <FlagAu />
+            AUD
+          </MenuItem>
+          <MenuItem className={styles.inputdetails__icon} value={'USD'}>
+            <FlagUs />
+            USD
+          </MenuItem>
+          <MenuItem className={styles.inputdetails__icon} value={'NZD'}>
+            <FlagNz />
+            NZD
+          </MenuItem>
+          <MenuItem className={styles.inputdetails__icon} value={'EUR'}>
+            <FlagEu />
+            EUR
+          </MenuItem>
+          <MenuItem className={styles.inputdetails__icon} value={'GBP'}>
+            <FlagUk />
+            GBP
+          </MenuItem>
+          <MenuItem className={styles.inputdetails__icon} value={'JPY'}>
+            <FlagJp />
+            JPY
+          </MenuItem>
         </Select>
       </div>
       <div className={styles.inputdetails__input}>
@@ -103,8 +141,8 @@ const InputDetails = ({ id, onInputChange }: Props) => {
           value={billingMethod}
           onChange={handleBillingMethodChange}
         >
-          <MenuItem value={'Hourly'}>Hours</MenuItem>
-          <MenuItem value={'Units'}>Units</MenuItem>
+          <MenuItem value={'hours'}>Hours</MenuItem>
+          <MenuItem value={'units'}>Units</MenuItem>
         </Select>
       </div>
     </form>
