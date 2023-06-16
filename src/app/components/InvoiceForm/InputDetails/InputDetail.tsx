@@ -1,24 +1,22 @@
 import styles from '../styles/sidebar.module.scss';
+import useInputStore from '@/app/stores/inputStore';
+import { FieldKeys } from '@/app/stores/inputStore';
 
 interface InputDetailProps {
   label: string;
-  id: string;
+  id: FieldKeys;
   type: string;
   placeholder: string;
-  onInputChange: (id: string, value: string) => void;
 }
 
-const InputDetail = ({
-  label,
-  id,
-  type,
-  placeholder,
-  onInputChange,
-}: InputDetailProps) => {
+const InputDetail = ({ label, id, type, placeholder }: InputDetailProps) => {
+  const value = useInputStore((state) => state.getField(state, id));
+  const setField = useInputStore((state) => state.setField);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    onInputChange(id, e.target.value);
+    setField(id, e.target.value);
   };
 
   return (
@@ -26,16 +24,18 @@ const InputDetail = ({
       <label htmlFor={id}>{label}</label>
       {type === 'textarea' ? (
         <textarea
-          id={id}
+          id={String(id)}
           placeholder={placeholder}
           rows={4}
+          value={value}
           onChange={handleChange}
         />
       ) : (
         <input
-          id={id}
+          id={String(id)}
           type={type}
           placeholder={placeholder}
+          value={value}
           onChange={handleChange}
         />
       )}

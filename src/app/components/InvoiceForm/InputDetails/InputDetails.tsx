@@ -1,21 +1,15 @@
 import styles from '../styles/sidebar.module.scss';
+import useInputStore from '@/app/stores/inputStore';
 
 import InputDetail from './InputDetail';
 import DateInput from './DateInput';
 
-import FlagUs from '../Images/us.svg';
-import FlagAu from '../Images/au.svg';
-import FlagUk from '../Images/uk.svg';
-import FlagEu from '../Images/eu.svg';
-import FlagNz from '../Images/nz.svg';
-import FlagJp from '../Images/jp.svg';
+import '/node_modules/flag-icons/css/flag-icons.min.css';
 
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useEffect, useState } from 'react';
-import { Flag } from '@material-ui/icons';
 
 interface Props {
   id: string;
@@ -55,42 +49,36 @@ const InputDetails = ({ id, onInputChange }: Props) => {
         id='company_name'
         type='text'
         placeholder='NeatReceipt'
-        onInputChange={onInputChange}
       />
       <InputDetail
         label='Email'
         id='email'
         type='email'
         placeholder='you@example.com'
-        onInputChange={onInputChange}
       />
       <InputDetail
         label='Invoice Number'
         id='invoice_number'
         type='text'
         placeholder='INV-1234'
-        onInputChange={onInputChange}
       />
       <InputDetail
         label='Purchase Order'
         id='purchase_order'
         type='text'
         placeholder='PO-9876'
-        onInputChange={onInputChange}
       />
       <InputDetail
         label='Company Details'
         id='company_details'
         type='textarea'
         placeholder=''
-        onInputChange={onInputChange}
       />
       <InputDetail
         label='Bill To'
         id='bill_to'
         type='textarea'
         placeholder=''
-        onInputChange={onInputChange}
       />
       <DateInput id='invoice_date' label='Invoice Date' />
       <DateInput id='due_date' label='Due Date' />
@@ -106,27 +94,22 @@ const InputDetails = ({ id, onInputChange }: Props) => {
           className={styles.inputdetails__icon}
         >
           <MenuItem className={styles.inputdetails__icon} value={'AUD'}>
-            <FlagAu />
+            <span className='fi fi-au' />
             AUD
           </MenuItem>
           <MenuItem className={styles.inputdetails__icon} value={'USD'}>
-            <FlagUs />
             USD
           </MenuItem>
           <MenuItem className={styles.inputdetails__icon} value={'NZD'}>
-            <FlagNz />
             NZD
           </MenuItem>
           <MenuItem className={styles.inputdetails__icon} value={'EUR'}>
-            <FlagEu />
             EUR
           </MenuItem>
           <MenuItem className={styles.inputdetails__icon} value={'GBP'}>
-            <FlagUk />
             GBP
           </MenuItem>
           <MenuItem className={styles.inputdetails__icon} value={'JPY'}>
-            <FlagJp />
             JPY
           </MenuItem>
         </Select>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from '../styles/sidebar.module.scss';
-import InvoiceItem, { InvoiceItemProps } from './InvoiceItem';
-import Add from '../Images/add.svg';
+//import InvoiceItem, { InvoiceItemProps } from './InvoiceItem';
+// import Add from '../Images/add.svg';
 
 import Tooltip from '@mui/material/Tooltip';
 import Fade from '@mui/material/Fade';
@@ -38,14 +38,14 @@ const InvoiceItems = () => {
 
   return (
     <div className={styles.inputitems}>
-      {invoiceItems.map((item) => (
+      {/* {invoiceItems.map((item) => (
         <InvoiceItem
           key={item.id}
           {...item}
           onInputChange={handleRemoveInvoiceItem}
           onRemove={handleRemoveInvoiceItem}
         />
-      ))}
+      ))} */}
       <Tooltip
         title='Add Item'
         TransitionComponent={Fade}
@@ -56,7 +56,7 @@ const InvoiceItems = () => {
           className={`btn ${styles.inputitems__add}`}
           onClick={handleAddInvoiceItem}
         >
-          <Add />
+          {/* <Add /> */}
         </button>
       </Tooltip>
     </div>

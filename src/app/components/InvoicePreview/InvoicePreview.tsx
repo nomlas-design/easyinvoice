@@ -14,6 +14,7 @@ import {
 import { CSSTransition } from 'react-transition-group';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import useInputStore, { FieldKeys } from '@/app/stores/inputStore';
 
 export default function InvoicePreview({
   inputDetails,
@@ -21,15 +22,22 @@ export default function InvoicePreview({
   inputDetails: Record<string, string>;
 }) {
   const [showOverlay, setShowOverlay] = useState(true);
+  const fields = useInputStore((state) => state.fields);
+  const dependencyArray: FieldKeys[] | String[] = Object.values(fields);
 
   useEffect(() => {
-    const relevantKeys = Object.keys(inputDetails).filter(
-      (key) => key !== 'currency' && key !== 'billing_method'
+    const hasData = Object.values(useInputStore.getState().fields).some(
+      (value) => value.trim() !== ''
     );
-    !inputDetails || relevantKeys.length === 0
-      ? setShowOverlay(true)
-      : setShowOverlay(false);
-  }, [inputDetails]);
+    setShowOverlay(!hasData);
+    const state = useInputStore.getState();
+  }, dependencyArray);
+
+  const formatTextArea = (text: string) => {
+    return text.replace(/\n/g, '<br />');
+  };
+
+  console.log(formatTextArea(fields.company_details));
 
   return (
     <div className={styles.invoicepreview__wrap}>
@@ -70,18 +78,22 @@ export default function InvoicePreview({
                 </div>
                 <div className={styles.invoicepreview__column}>
                   <div className={styles.invoicepreview__company}>
-                    {inputDetails.company_name || 'NeatReceipt'}
+                    {fields.company_name || 'Company Name'}
                   </div>
                   <div className={styles.invoicepreview__email}>
-                    you@example.com
+                    {fields.email || 'you@example.com'}
                   </div>
                 </div>
               </div>
               <div className={styles.invoicepreview__row__item}>
-                <div className={styles.invoicepreview__company_details}>
-                  22 Bayles Street <br />
-                  Parkville VIC 3052
-                </div>
+                <div
+                  className={styles.invoicepreview__company_details}
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      formatTextArea(fields.company_details) ||
+                      'Company Details',
+                  }}
+                ></div>
               </div>
             </div>
             <div className={styles.invoicepreview__row}>
