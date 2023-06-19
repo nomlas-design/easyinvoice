@@ -16,28 +16,21 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import useInputStore, { FieldKeys } from '@/app/stores/inputStore';
 
-export default function InvoicePreview({
+const InvoicePreview = ({
   inputDetails,
 }: {
   inputDetails: Record<string, string>;
-}) {
-  const [showOverlay, setShowOverlay] = useState(true);
+}) => {
   const fields = useInputStore((state) => state.fields);
-  const dependencyArray: FieldKeys[] | String[] = Object.values(fields);
 
-  useEffect(() => {
-    const hasData = Object.values(useInputStore.getState().fields).some(
-      (value) => value.trim() !== ''
-    );
-    setShowOverlay(!hasData);
-    const state = useInputStore.getState();
-  }, dependencyArray);
+  const showOverlay = !Object.entries(fields).some(
+    ([key, value]) =>
+      value.trim() !== '' && key !== 'currency' && key !== 'billing_method'
+  );
 
   const formatTextArea = (text: string) => {
     return text.replace(/\n/g, '<br />');
   };
-
-  console.log(formatTextArea(fields.company_details));
 
   return (
     <div className={styles.invoicepreview__wrap}>
@@ -104,4 +97,6 @@ export default function InvoicePreview({
       </div>
     </div>
   );
-}
+};
+
+export default InvoicePreview;

@@ -1,5 +1,6 @@
 import styles from '../styles/sidebar.module.scss';
 import useInputStore from '@/app/stores/inputStore';
+import { FieldKeys } from '@/app/stores/inputStore';
 
 import InputDetail from './InputDetail';
 import DateInput from './DateInput';
@@ -9,33 +10,20 @@ import '/node_modules/flag-icons/css/flag-icons.min.css';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { useEffect, useState } from 'react';
 
 interface Props {
-  id: string;
-  onInputChange: (id: string, value: string) => void;
+  id: any;
 }
 
-const InputDetails = ({ id, onInputChange }: Props) => {
-  const [currency, setCurrency] = useState('AUD');
-  const [billingMethod, setBillingMethod] = useState('hours');
+const InputDetails = ({ id }: Props) => {
+  const currency = useInputStore((state) => state.getField(state, 'currency'));
+  const billingMethod = useInputStore((state) =>
+    state.getField(state, 'billing_method')
+  );
+  const setField = useInputStore((state) => state.setField);
 
-  useEffect(() => {
-    // Call onInputChange with initial values when the component mounts
-    onInputChange('currency', currency);
-    onInputChange('billing_method', billingMethod);
-  }, []);
-
-  const handleCurrencyChange = (event: SelectChangeEvent) => {
-    const value = event.target.value as string;
-    setCurrency(value);
-    onInputChange('currency', value);
-  };
-
-  const handleBillingMethodChange = (event: SelectChangeEvent) => {
-    const value = event.target.value as string;
-    setBillingMethod(value);
-    onInputChange('billing_method', value);
+  const handleSelectChange = (e: SelectChangeEvent<string>) => {
+    setField(e.target.name as FieldKeys, e.target.value);
   };
 
   return (
@@ -89,8 +77,9 @@ const InputDetails = ({ id, onInputChange }: Props) => {
         <Select
           labelId='currency-select-label'
           id='currency'
+          name='currency'
           value={currency}
-          onChange={handleCurrencyChange}
+          onChange={handleSelectChange}
           className={styles.inputdetails__icon}
         >
           <MenuItem className={styles.inputdetails__icon} value={'AUD'}>
@@ -98,18 +87,23 @@ const InputDetails = ({ id, onInputChange }: Props) => {
             AUD
           </MenuItem>
           <MenuItem className={styles.inputdetails__icon} value={'USD'}>
+            <span className='fi fi-us' />
             USD
           </MenuItem>
           <MenuItem className={styles.inputdetails__icon} value={'NZD'}>
+            <span className='fi fi-nz' />
             NZD
           </MenuItem>
           <MenuItem className={styles.inputdetails__icon} value={'EUR'}>
+            <span className='fi fi-eu' />
             EUR
           </MenuItem>
           <MenuItem className={styles.inputdetails__icon} value={'GBP'}>
+            <span className='fi fi-gb' />
             GBP
           </MenuItem>
           <MenuItem className={styles.inputdetails__icon} value={'JPY'}>
+            <span className='fi fi-jp' />
             JPY
           </MenuItem>
         </Select>
@@ -121,8 +115,9 @@ const InputDetails = ({ id, onInputChange }: Props) => {
         <Select
           labelId='billing-method-label'
           id='billing_method'
+          name='billing_method'
           value={billingMethod}
-          onChange={handleBillingMethodChange}
+          onChange={handleSelectChange}
         >
           <MenuItem value={'hours'}>Hours</MenuItem>
           <MenuItem value={'units'}>Units</MenuItem>
