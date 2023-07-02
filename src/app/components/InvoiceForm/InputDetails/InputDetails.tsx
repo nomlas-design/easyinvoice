@@ -12,7 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 interface Props {
-  id: any;
+  id: string;
 }
 
 const InputDetails = ({ id }: Props) => {

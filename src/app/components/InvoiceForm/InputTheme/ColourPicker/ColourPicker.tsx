@@ -1,15 +1,15 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { HexColorInput, HexColorPicker } from 'react-colorful';
 
-import styles from '../styles/form.module.scss';
+import styles from '../../styles/sidebar.module.scss';
 import useClickOutside from './useClickOutside';
 
 interface ColourPickerProps {
   colour: string;
-  onChange: (color: string) => void;
+  onChange: (colour: string) => void;
 }
 
-export default function ColourPicker({ colour, onChange }: ColourPickerProps) {
+const ColourPicker = ({ colour, onChange }: ColourPickerProps) => {
   const popover = useRef<HTMLDivElement>(null);
   const [isOpen, toggle] = useState<boolean>(false);
 
@@ -32,4 +32,6 @@ export default function ColourPicker({ colour, onChange }: ColourPickerProps) {
       )}
     </div>
   );
-}
+};
+
+export default ColourPicker;

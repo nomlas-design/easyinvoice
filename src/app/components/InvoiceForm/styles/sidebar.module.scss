@@ -1,11 +1,15 @@
 @import '../../../styles/variables.scss';
 
 .focused {
-  opacity: 1;
+  input {
+    opacity: 1;
+  }
 }
 
 .blurred {
-  opacity: 0.7;
+  input {
+    opacity: 0.85;
+  }
 }
 
 .inputdetails {
@@ -21,7 +25,7 @@
       color: white;
     }
 
-    &__readonly {
+    &--readonly {
       cursor: default;
     }
   }
@@ -88,7 +92,13 @@
 .inputitems {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
 
   &__add {
     display: flex;
@@ -176,5 +186,48 @@
       border-radius: 0.5rem;
       padding: 1rem;
     }
+  }
+}
+
+// Colour picker
+
+.colourpicker {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  z-index: 2;
+
+  &__swatch {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
+
+  &__popover {
+    position: absolute;
+    top: calc(100% + 2px);
+    left: 0;
+    border-radius: 9px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  input {
+    display: block;
+    box-sizing: border-box;
+    width: 200px;
+    padding: 6px;
+    margin-top: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #eee;
+    outline: none;
+    font: inherit;
+    text-transform: uppercase;
+    text-align: center;
   }
 }

@@ -1,6 +1,6 @@
 import styles from '../styles/sidebar.module.scss';
 
-import useInputStore, { FieldKeys } from '@/app/stores/inputStore';
+import useInputStore, { DateFieldKeys } from '@/app/stores/inputStore';
 
 import dayjs, { Dayjs } from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -12,14 +12,14 @@ dayjs.locale('en-au');
 
 interface Props {
   label: string;
-  id: string;
+  id: DateFieldKeys;
 }
 
 const DateInput = ({ label, id }: Props) => {
   const startDate = dayjs(
-    useInputStore((state) => state.getField(state, id as FieldKeys))
+    useInputStore((state) => state.getDateField(state, id))
   );
-  const setField = useInputStore((state) => state.setField);
+  const setDateField = useInputStore((state) => state.setDateField);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='en-au'>
@@ -29,7 +29,7 @@ const DateInput = ({ label, id }: Props) => {
           value={startDate}
           onChange={(newStartDate: Dayjs | null) => {
             if (newStartDate) {
-              setField(id as FieldKeys, newStartDate.format());
+              setDateField(id as DateFieldKeys, newStartDate.format());
             }
           }}
         />

@@ -24,10 +24,6 @@ export default function Home() {
     });
   };
 
-  useEffect(() => {
-    console.log(inputDetails);
-  }, [inputDetails]);
-
   return (
     <main className={styles.appgrid}>
       <FormWrapper

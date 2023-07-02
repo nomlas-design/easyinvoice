@@ -10,7 +10,7 @@ const InvoiceItems = () => {
   const invoiceItems = useInputStore((state) => state.invoiceItems);
   const addInvoiceItem = useInputStore((state) => state.addInvoiceItem);
 
-  const [focusedItem, setFocusedItem] = useState(null);
+  const [focusedItem, setFocusedItem] = useState<string | null>(null);
 
   const handleAddInvoiceItem = () => {
     addInvoiceItem();
@@ -18,16 +18,18 @@ const InvoiceItems = () => {
 
   return (
     <div className={styles.inputitems}>
-      <form>
-        {invoiceItems.map((item) => (
-          <InvoiceItem
-            key={item.id}
-            item={item}
-            isFocused={item.id === focusedItem}
-            setFocusedItem={setFocusedItem}
-          />
-        ))}
-      </form>
+      {invoiceItems.length > 0 && (
+        <form className={styles.inputitems__form}>
+          {invoiceItems.map((item) => (
+            <InvoiceItem
+              key={item.id}
+              item={item}
+              isFocused={item.id === focusedItem}
+              setFocusedItem={setFocusedItem}
+            />
+          ))}
+        </form>
+      )}
       <button
         className={`btn ${styles.inputitems__add}`}
         onClick={handleAddInvoiceItem}

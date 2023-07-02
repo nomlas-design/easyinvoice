@@ -34,13 +34,8 @@
     .invoicepreview {
       position: relative;
       font-size: clamp(0.6em, 1vw, 0.8rem);
-      padding: 2rem 3rem;
       overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      gap: 2.5rem;
-      background: white;
-      height: 500px;
+      height: auto;
       box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 12px 3px,
         rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
         rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
@@ -75,10 +70,18 @@
         }
       }
 
+      &__inner {
+        padding: 4rem 4rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+        background: white;
+      }
+
       &__row {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
         gap: 1rem;
 
         &__item {
@@ -86,6 +89,24 @@
           justify-content: center;
           align-items: center;
           gap: 1.25rem;
+        }
+      }
+
+      &__billingitem {
+        // span first of type
+        span:first-of-type {
+          width: 50%;
+          flex-grow: 1;
+        }
+        span {
+          width: 25%;
+        }
+
+        &--head {
+          border-top: 1px solid rgb(183, 183, 183);
+          border-bottom: 1px solid rgb(183, 183, 183);
+          padding: 1rem 0;
+          font-weight: 600;
         }
       }
 
@@ -110,7 +131,6 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        border-radius: 1.5rem;
         padding: 1rem;
       }
 

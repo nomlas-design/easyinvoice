@@ -1,17 +1,15 @@
 import styles from '../styles/sidebar.module.scss';
-import InputDetail from '../InputDetails/InputDetail';
 import Delete from './delete.svg';
 import CurrencyInput from 'react-currency-input-field';
 import useInputStore, {
   InvoiceItem as InvoiceItemType,
 } from '@/app/stores/inputStore';
-import { type } from 'os';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 interface Props {
   item: InvoiceItemType;
   isFocused: boolean;
-  setFocusedItem: (id: string) => void;
+  setFocusedItem: (id: string | null) => void;
 }
 
 const InvoiceItem = ({ item, isFocused, setFocusedItem }: Props) => {
@@ -19,6 +17,17 @@ const InvoiceItem = ({ item, isFocused, setFocusedItem }: Props) => {
     (state) => state.setInvoiceItemField
   );
   const removeInvoiceItem = useInputStore((state) => state.removeInvoiceItem);
+
+  const labels = useInputStore((state) => state.getLabels(state));
+  const prefix = useInputStore((state) => state.getCurrencyPrefix(state));
+
+  useEffect(() => {
+    if (item.quantity && item.rate) {
+      let total = Number(item.quantity) * Number(item.rate);
+      total = Number(total.toFixed(2)); // Round to nearest 2 decimal places
+      setInvoiceItemField(item.id, 'total', total.toString());
+    }
+  }, [item.quantity, item.rate, item.id, setInvoiceItemField]);
 
   const handleItemDescriptionChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -28,19 +37,17 @@ const InvoiceItem = ({ item, isFocused, setFocusedItem }: Props) => {
 
   const handleRateChange = (value: string | undefined) => {
     if (value !== undefined) {
-      setInvoiceItemField(item.id, 'rate', parseFloat(value));
+      setInvoiceItemField(item.id, 'rate', value);
     } else {
-      setInvoiceItemField(item.id, 'rate', 0);
+      setInvoiceItemField(item.id, 'rate', '');
     }
   };
 
-  const handleQuanityChange = (value: string) => {
-    const numberValue = parseInt(value, 10);
-
-    if (!isNaN(numberValue)) {
-      setInvoiceItemField(item.id, 'quantity', numberValue);
+  const handleQuanityChange = (value: string | undefined) => {
+    if (value !== undefined) {
+      setInvoiceItemField(item.id, 'quantity', value);
     } else {
-      setInvoiceItemField(item.id, 'quantity', 0);
+      setInvoiceItemField(item.id, 'quantity', '');
     }
   };
 
@@ -53,13 +60,6 @@ const InvoiceItem = ({ item, isFocused, setFocusedItem }: Props) => {
   };
 
   const itemStyles = isFocused ? styles.focused : styles.blurred;
-
-  useEffect(() => {
-    if (item.quantity && item.rate) {
-      const total = item.quantity * item.rate;
-      setInvoiceItemField(item.id, 'total', total.toString());
-    }
-  }, [item.quantity, item.rate, item.id, setInvoiceItemField]);
 
   const handleRemoveItem = () => {
     removeInvoiceItem(item.id);
@@ -86,13 +86,12 @@ const InvoiceItem = ({ item, isFocused, setFocusedItem }: Props) => {
       </div>
       <div className={styles.inputdetails__itemgrid}>
         <div className={styles.inputdetails__input}>
-          <label htmlFor={''}>Rate/Hour</label>
+          <label htmlFor={`${item.id}_item_rate`}>{labels[0]}</label>
           <CurrencyInput
             id={`${item.id}_item_rate`}
-            placeholder='$0.00'
+            placeholder={`${prefix}0.00`}
             allowDecimals={true}
-            min={0}
-            prefix={'$'}
+            prefix={prefix}
             step={10}
             value={item.rate}
             onValueChange={handleRateChange}
@@ -101,14 +100,15 @@ const InvoiceItem = ({ item, isFocused, setFocusedItem }: Props) => {
           />
         </div>
         <div className={styles.inputdetails__input}>
-          <label htmlFor={''}>Hours</label>
-          <input
+          <label htmlFor={`${item.id}_item_units`}>{labels[1]}</label>
+          <CurrencyInput
             id={`${item.id}_item_units`}
-            type='number'
-            min={0}
             placeholder='0'
-            value={item.quantity || ''}
-            onChange={(e) => handleQuanityChange(parseInt(e.target.value))}
+            allowDecimals={true}
+            min={0}
+            step={10}
+            value={item.quantity}
+            onValueChange={handleQuanityChange}
             onFocus={handleFocus}
             onBlur={handleBlur}
           />
@@ -116,13 +116,14 @@ const InvoiceItem = ({ item, isFocused, setFocusedItem }: Props) => {
         <div className={styles.inputdetails__input}>
           <label htmlFor={''}>Total</label>
           <CurrencyInput
+            className={styles['inputdetails__input--readonly']}
             id={`${item.id}_item_total`}
-            placeholder='$0.00'
+            placeholder='-'
             allowDecimals={true}
-            prefix={'$'}
+            prefix={prefix}
             step={10}
             value={item.total}
-            disabled={true}
+            readOnly={true}
           />
         </div>
         <button

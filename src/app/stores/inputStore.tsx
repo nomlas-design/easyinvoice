@@ -14,24 +14,36 @@ export type FieldKeys =
 
 type Fields = Record<FieldKeys, string>;
 
-type DateFields = 'invoice_date' | 'due_date';
+export type DateFieldKeys = 'invoice_date' | 'due_date';
 
 export interface InvoiceItem {
   id: string;
   description: string;
   rate: string | number;
-  quantity: number;
+  quantity: number | string;
   total: string | number;
 }
 
+const currencySymbols: { [key: string]: string } = {
+  AUD: '$',
+  USD: 'US$',
+  NZD: 'NZ$',
+  EUR: '€',
+  GBP: '£',
+  JPY: '¥',
+};
+
 interface InputStore {
   fields: Fields;
-  dateFields: Record<DateFields, string>;
+  dateFields: Record<DateFieldKeys, string>;
   invoiceItems: InvoiceItem[];
+  colour: string;
+  textBackgroundColour: string;
+  textColour: string;
   getField: (state: InputStore, id: FieldKeys) => string;
-  getDateField: (state: InputStore, id: DateFields) => string;
+  getDateField: (state: InputStore, id: DateFieldKeys) => string;
   setField: (id: FieldKeys, value: string) => void;
-  setDateField: (id: DateFields, value: string) => void;
+  setDateField: (id: DateFieldKeys, value: string) => void;
   addInvoiceItem: () => void;
   removeInvoiceItem: (id: string) => void;
   setInvoiceItemField: (
@@ -39,6 +51,11 @@ interface InputStore {
     field: keyof InvoiceItem,
     value: string | number
   ) => void;
+  getLabels: (state: InputStore) => string[];
+  getCurrencyPrefix: (state: InputStore) => string;
+  setColour: (colour: string) => void;
+  setBackgroundTextColour: (colour: string) => void;
+  setTextColour: (colour: string) => void;
 }
 
 const useInputStore = create<InputStore>((set) => ({
@@ -56,7 +73,41 @@ const useInputStore = create<InputStore>((set) => ({
     invoice_date: dayjs().format(),
     due_date: dayjs().add(1, 'week').format(),
   },
-  invoiceItems: [],
+  // invoiceItems: [
+  //   {
+  //     id: uuidv4(),
+  //     description: '',
+  //     rate: '',
+  //     quantity: '',
+  //     total: '',
+  //   },
+  // ],
+  invoiceItems: [
+    {
+      id: uuidv4(),
+      description: 'Website Design',
+      rate: 50,
+      quantity: 20,
+      total: 50 * 20,
+    },
+    {
+      id: uuidv4(),
+      description: 'Frontend Development',
+      rate: 60,
+      quantity: 30,
+      total: 60 * 30,
+    },
+    {
+      id: uuidv4(),
+      description: 'Backend Development',
+      rate: 70,
+      quantity: 40,
+      total: 70 * 40,
+    },
+  ],
+  colour: '#000000',
+  textBackgroundColour: '#ffffff',
+  textColour: '#000000',
   getField: (state, id) => state.fields[id],
   getDateField: (state, id) => state.dateFields[id],
   setField: (id, value) =>
@@ -71,7 +122,7 @@ const useInputStore = create<InputStore>((set) => ({
     set((state) => ({
       invoiceItems: [
         ...state.invoiceItems,
-        { id: uuidv4(), description: '', rate: '', quantity: 0, total: '' },
+        { id: uuidv4(), description: '', rate: 0, quantity: 0, total: 0 },
       ],
     })),
   removeInvoiceItem: (idToRemove: string) =>
@@ -88,10 +139,22 @@ const useInputStore = create<InputStore>((set) => ({
       if (itemIndex >= 0) {
         const newItems = [...state.invoiceItems];
         newItems[itemIndex] = { ...newItems[itemIndex], [field]: value };
-        console.log('newItems after change', newItems); // Add this line
         return { invoiceItems: newItems };
       }
+      // return previous state if condition not met
+      return state;
     }),
+  getLabels: (state) =>
+    state.fields['billing_method'] === 'hours'
+      ? ['Rate/Hour', 'Hours']
+      : ['Unit Cost', 'Units'],
+  getCurrencyPrefix: (state) =>
+    currencySymbols[state.fields['currency']] || '$',
+  setColour: (colour) => set((state) => ({ ...state, colour: colour })),
+  setBackgroundTextColour: (colour) =>
+    set((state) => ({ ...state, textBackgroundColour: colour })),
+
+  setTextColour: (colour) => set((state) => ({ ...state, textColour: colour })),
 }));
 
 export default useInputStore;

@@ -4,6 +4,7 @@ import InputAccordion from './InputAccordion';
 import styles from './styles/sidebar.module.scss';
 import { useState } from 'react';
 import { Accordion } from '@szhsin/react-accordion';
+import InputTheme from './InputTheme/InputTheme';
 
 interface InvoiceFormProps {
   onInputChange: (id: string, value: string) => void;
@@ -37,7 +38,7 @@ const InvoiceForm = ({
           expanded={expanded === 'invoice_details'}
           onChange={handleChange('invoice_details')}
         >
-          <InputDetails id='invoice_details' onInputChange={onInputChange} />
+          <InputDetails id='invoice_details' />
         </InputAccordion>
         <InputAccordion
           name='Billing Items'
@@ -45,12 +46,7 @@ const InvoiceForm = ({
           expanded={expanded === 'invoice_items'}
           onChange={handleChange('invoice_items')}
         >
-          <InvoiceItems
-            currency={currency}
-            billingMethod={billingMethod}
-            id='invoice_items'
-            onInputChange={onInputChange}
-          />
+          <InvoiceItems />
         </InputAccordion>
         <InputAccordion
           name='Billing Details'
@@ -66,7 +62,7 @@ const InvoiceForm = ({
           expanded={expanded === 'invoice_theme'}
           onChange={handleChange('invoice_theme')}
         >
-          Hi
+          <InputTheme />
         </InputAccordion>
       </Accordion>
     </>
