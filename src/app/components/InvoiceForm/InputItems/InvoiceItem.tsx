@@ -92,7 +92,8 @@ const InvoiceItem = ({ item, isFocused, setFocusedItem }: Props) => {
             placeholder={`${prefix}0.00`}
             allowDecimals={true}
             prefix={prefix}
-            step={10}
+            step={1}
+            maxLength={7}
             value={item.rate}
             onValueChange={handleRateChange}
             onFocus={handleFocus}
@@ -106,7 +107,8 @@ const InvoiceItem = ({ item, isFocused, setFocusedItem }: Props) => {
             placeholder='0'
             allowDecimals={true}
             min={0}
-            step={10}
+            step={1}
+            maxLength={7}
             value={item.quantity}
             onValueChange={handleQuanityChange}
             onFocus={handleFocus}

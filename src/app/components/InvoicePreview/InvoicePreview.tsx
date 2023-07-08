@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 // eslint-disable-next-line react/no-unescaped-entities
 
 'use client';
@@ -6,6 +7,7 @@ import styles from './styles/preview.module.scss';
 import Arrow from './arrow_curve.svg';
 
 import { CSSTransition } from 'react-transition-group';
+import { formatValue } from 'react-currency-input-field';
 import Image from 'next/image';
 import useInputStore, { FieldKeys } from '@/app/stores/inputStore';
 
@@ -25,8 +27,11 @@ const InvoicePreview = ({
   );
 
   const textColour = useInputStore((state) => state.textColour);
+
+  const lighterColour = useInputStore((state) => state.lighterColour);
   const labels = useInputStore((state) => state.getLabels(state));
   const prefix = useInputStore((state) => state.getCurrencyPrefix(state));
+  const logo = useInputStore((state) => state.logo);
 
   const showOverlay = !Object.entries(fields).some(
     ([key, value]) =>
@@ -67,14 +72,11 @@ const InvoicePreview = ({
                 className={`${styles.invoicepreview__row} ${styles.invoicepreview__fontlight}`}
               >
                 <div className={styles.invoicepreview__row__item}>
-                  <div className={styles.invoicepreview__logo}>
-                    <Image
-                      src='/images/logo_2.svg'
-                      alt={inputDetails ? inputDetails.company_name : 'Logo'}
-                      fill={true}
-                      style={{ objectFit: 'contain' }}
-                    />
-                  </div>
+                  <img
+                    className={styles.invoicepreview__logo}
+                    src={logo ? logo.url : '/images/logo_2.svg'}
+                    alt={inputDetails ? inputDetails.company_name : 'Logo'}
+                  />
                   <div className={styles.invoicepreview__column}>
                     <div
                       style={{ color: textColour }}
@@ -98,30 +100,43 @@ const InvoicePreview = ({
                   ></div>
                 </div>
               </div>
-              <div
-                className={`${styles.invoicepreview__row} ${styles.invoicepreview__billingitem} ${styles['invoicepreview__billingitem--head']}`}
-              >
-                <span>Description</span>
-                <span>{labels[0]}</span>
-                <span>{labels[1]}</span>
-                <span>Total</span>
+              <div className={styles.invoicepreview__table}>
+                <div
+                  style={{
+                    backgroundColor: lighterColour,
+                    color: textBackgroundColour,
+                    borderColor: backgroundColour,
+                  }}
+                  className={`${styles.invoicepreview__row} ${styles.invoicepreview__billingitem} ${styles['invoicepreview__billingitem--head']}`}
+                >
+                  <span className={styles.textleft}>Description</span>
+                  <span>{labels[0]}</span>
+                  <span>{labels[1]}</span>
+                  <span className={styles.textright}>Sub-Total</span>
+                </div>
+                {invoiceItems.map((item) => {
+                  return (
+                    <div
+                      className={`${styles.invoicepreview__row} ${styles.invoicepreview__billingitem}`}
+                      key={item.id}
+                      style={{ borderColor: backgroundColour }}
+                    >
+                      <span className={styles.textleft}>
+                        {item.description !== '' ? item.description : '-'}
+                      </span>
+                      <span>
+                        {prefix}
+                        {formatValue({ value: String(item.rate) })}
+                      </span>
+                      <span>{item.quantity}</span>
+                      <span className={styles.textright}>
+                        {prefix}
+                        {formatValue({ value: String(item.total) })}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
-              {invoiceItems.map((item) => {
-                return (
-                  <div
-                    className={`${styles.invoicepreview__row} ${styles.invoicepreview__billingitem}`}
-                    key={item.id}
-                  >
-                    <span>{item.description}</span>
-                    <span>{item.rate}</span>
-                    <span>{item.quantity}</span>
-                    <span>
-                      {prefix}
-                      {item.total}
-                    </span>
-                  </div>
-                );
-              })}
             </div>
             <div
               style={{ background: backgroundColour }}

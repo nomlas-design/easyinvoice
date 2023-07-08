@@ -1,6 +1,7 @@
 import dayjs, { Dayjs } from 'dayjs';
 import { v4 as uuidv4 } from 'uuid';
 import { create } from 'zustand';
+import { generateLighterColour } from '../lib/configureColours';
 
 export type FieldKeys =
   | 'company_name'
@@ -15,6 +16,11 @@ export type FieldKeys =
 type Fields = Record<FieldKeys, string>;
 
 export type DateFieldKeys = 'invoice_date' | 'due_date';
+
+type ImageData = {
+  url: string;
+  file: File;
+};
 
 export interface InvoiceItem {
   id: string;
@@ -40,6 +46,7 @@ interface InputStore {
   colour: string;
   textBackgroundColour: string;
   textColour: string;
+  lighterColour: string;
   getField: (state: InputStore, id: FieldKeys) => string;
   getDateField: (state: InputStore, id: DateFieldKeys) => string;
   setField: (id: FieldKeys, value: string) => void;
@@ -56,6 +63,9 @@ interface InputStore {
   setColour: (colour: string) => void;
   setBackgroundTextColour: (colour: string) => void;
   setTextColour: (colour: string) => void;
+  setLighterColour: (colour: string) => void;
+  logo: ImageData | null;
+  setLogo: (imageData: ImageData | null) => void;
 }
 
 const useInputStore = create<InputStore>((set) => ({
@@ -105,9 +115,12 @@ const useInputStore = create<InputStore>((set) => ({
       total: 70 * 40,
     },
   ],
-  colour: '#000000',
+  colour: '#F9A124',
   textBackgroundColour: '#ffffff',
   textColour: '#000000',
+  lighterColour: generateLighterColour('#000000'),
+  logo: null,
+
   getField: (state, id) => state.fields[id],
   getDateField: (state, id) => state.dateFields[id],
   setField: (id, value) =>
@@ -155,6 +168,9 @@ const useInputStore = create<InputStore>((set) => ({
     set((state) => ({ ...state, textBackgroundColour: colour })),
 
   setTextColour: (colour) => set((state) => ({ ...state, textColour: colour })),
+  setLighterColour: (colour) =>
+    set((state) => ({ ...state, lighterColour: colour })),
+  setLogo: (imageData) => set(() => ({ logo: imageData })),
 }));
 
 export default useInputStore;
