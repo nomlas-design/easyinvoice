@@ -5,18 +5,12 @@ import styles from './styles/sidebar.module.scss';
 import { useState } from 'react';
 import { Accordion } from '@szhsin/react-accordion';
 import InputTheme from './InputTheme/InputTheme';
+import DetailsIcon from './Images/icon_details.svg';
+import ItemsIcon from './Images/icon_items.svg';
+import BillingIcon from './Images/icon_billing.svg';
+import ThemeIcon from './Images/icon_theme.svg';
 
-interface InvoiceFormProps {
-  onInputChange: (id: string, value: string) => void;
-  currency: string;
-  billingMethod: string;
-}
-
-const InvoiceForm = ({
-  onInputChange,
-  currency,
-  billingMethod,
-}: InvoiceFormProps) => {
+const InvoiceForm = () => {
   // only allow one accordion to be open at a time
   const [expanded, setExpanded] = useState<string | false>('invoice_details');
 
@@ -34,6 +28,7 @@ const InvoiceForm = ({
       >
         <InputAccordion
           name='Invoice Details'
+          icon={<DetailsIcon />}
           id='invoice_details'
           expanded={expanded === 'invoice_details'}
           onChange={handleChange('invoice_details')}
@@ -43,6 +38,7 @@ const InvoiceForm = ({
         <InputAccordion
           name='Billing Items'
           id='invoice_items'
+          icon={<ItemsIcon />}
           expanded={expanded === 'invoice_items'}
           onChange={handleChange('invoice_items')}
         >
@@ -51,6 +47,7 @@ const InvoiceForm = ({
         <InputAccordion
           name='Billing Details'
           id='invoice_billing'
+          icon={<BillingIcon />}
           expanded={expanded === 'invoice_billing'}
           onChange={handleChange('invoice_billing')}
         >
@@ -59,6 +56,7 @@ const InvoiceForm = ({
         <InputAccordion
           name='Logo and Colours'
           id='invoice_theme'
+          icon={<ThemeIcon />}
           expanded={expanded === 'invoice_theme'}
           onChange={handleChange('invoice_theme')}
         >
